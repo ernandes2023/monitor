@@ -1,0 +1,11 @@
+C:\Users\ernan\source\repos\MonitorFinanceiro\bin\Debug\MonitorFinanceiro.exe.config
+C:\Users\ernan\source\repos\MonitorFinanceiro\bin\Debug\MonitorFinanceiro.exe
+C:\Users\ernan\source\repos\MonitorFinanceiro\bin\Debug\MonitorFinanceiro.pdb
+C:\Users\ernan\source\repos\MonitorFinanceiro\obj\Debug\MonitorFinanceiro.csproj.AssemblyReference.cache
+C:\Users\ernan\source\repos\MonitorFinanceiro\obj\Debug\MonitorFinanceiro.categoria.resources
+C:\Users\ernan\source\repos\MonitorFinanceiro\obj\Debug\MonitorFinanceiro.Form1.resources
+C:\Users\ernan\source\repos\MonitorFinanceiro\obj\Debug\MonitorFinanceiro.Properties.Resources.resources
+C:\Users\ernan\source\repos\MonitorFinanceiro\obj\Debug\MonitorFinanceiro.csproj.GenerateResource.cache
+C:\Users\ernan\source\repos\MonitorFinanceiro\obj\Debug\MonitorFinanceiro.csproj.CoreCompileInputs.cache
+C:\Users\ernan\source\repos\MonitorFinanceiro\obj\Debug\MonitorFinanceiro.exe
+C:\Users\ernan\source\repos\MonitorFinanceiro\obj\Debug\MonitorFinanceiro.pdb
