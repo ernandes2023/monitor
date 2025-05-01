@@ -1,7 +1,7 @@
 ﻿
 namespace MonitorFinanceiro
 {
-    partial class Form1
+    partial class FrmPrincipal
     {
         /// <summary>
         /// Variável de designer necessária.
@@ -104,6 +104,7 @@ namespace MonitorFinanceiro
             this.txt_nome_usuario.Name = "txt_nome_usuario";
             this.txt_nome_usuario.Size = new System.Drawing.Size(289, 20);
             this.txt_nome_usuario.TabIndex = 0;
+            this.txt_nome_usuario.TextChanged += new System.EventHandler(this.txt_nome_usuario_TextChanged);
             // 
             // label1
             // 
@@ -145,6 +146,7 @@ namespace MonitorFinanceiro
             this.txt_email.Name = "txt_email";
             this.txt_email.Size = new System.Drawing.Size(289, 20);
             this.txt_email.TabIndex = 3;
+            this.txt_email.TextChanged += new System.EventHandler(this.txt_email_TextChanged);
             // 
             // label4
             // 
@@ -169,6 +171,7 @@ namespace MonitorFinanceiro
             this.txt_senha.Name = "txt_senha";
             this.txt_senha.Size = new System.Drawing.Size(289, 20);
             this.txt_senha.TabIndex = 6;
+            this.txt_senha.TextChanged += new System.EventHandler(this.txt_senha_TextChanged);
             // 
             // btn_inserir_usuario
             // 
@@ -178,6 +181,7 @@ namespace MonitorFinanceiro
             this.btn_inserir_usuario.TabIndex = 9;
             this.btn_inserir_usuario.Text = "Cadastrar";
             this.btn_inserir_usuario.UseVisualStyleBackColor = true;
+            this.btn_inserir_usuario.Click += new System.EventHandler(this.btn_inserir_usuario_Click);
             // 
             // groupBox1
             // 
@@ -208,6 +212,7 @@ namespace MonitorFinanceiro
             this.button5.TabIndex = 11;
             this.button5.Text = "Apagar";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
@@ -217,6 +222,7 @@ namespace MonitorFinanceiro
             this.button4.TabIndex = 10;
             this.button4.Text = "Editar";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // tabControl1
             // 

@@ -11,9 +11,9 @@ using MySql.Data.MySqlClient;
 
 namespace MonitorFinanceiro
 {
-    public partial class Form1 : Form
+    public partial class FrmPrincipal : Form
     {
-        public Form1()
+        public FrmPrincipal()
         {
             InitializeComponent();
             CarregDadosGrm();
@@ -50,6 +50,36 @@ namespace MonitorFinanceiro
 
 
         private void Dgv_usuario_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void txt_nome_usuario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_email_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_senha_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_inserir_usuario_Click(object sender, EventArgs e)
         {
 
         }
