@@ -8,6 +8,7 @@ namespace MonitorFinanceiro
 {
     static class Program
     {
+        public static string conexaoBD = "server=localhost;database=db_monitor;uid=root;pwd=ernandes";
         /// <summary>
         /// Ponto de entrada principal para o aplicativo.
         /// </summary>

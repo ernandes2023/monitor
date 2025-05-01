@@ -1,0 +1,23 @@
+﻿# Ignore arquivos e pastas do Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Pastas de build
+bin/
+obj/
+TestResults/
+
+# Configurações temporárias
+*.log
+*.tmp
+
+# Arquivos de backup
+*~
+*.bak
+
+# Arquivos de pacotes NuGet (opcional)
+packages/
+*.nupkg
