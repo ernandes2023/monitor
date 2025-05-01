@@ -40,7 +40,8 @@ namespace MonitorFinanceiro
         private void CarregDadosGrm()
         {
             // Sua consulta SQL
-            string query = "SELECT * FROM usuario where is_activated = 1;";
+            //string query = "SELECT * FROM usuario where is_activated = 1;";
+            string query = "SELECT * FROM usuario";
 
             // Criar um DataTable para armazenar os dados
             DataTable tabela = new DataTable();
@@ -83,17 +84,22 @@ namespace MonitorFinanceiro
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void txt_conf_senha_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void btn_edit_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void btn_inserir_usuario_Click(object sender, EventArgs e)
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_save_Click(object sender, EventArgs e)
         {
 
         }
@@ -101,6 +107,19 @@ namespace MonitorFinanceiro
         private void cbxFrmPag_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_limpar_Click(object sender, EventArgs e)
+        {
+            txt_nome_usuario.Text = string.Empty;
+            txt_email.Text = string.Empty;
+            txt_senha.Text = string.Empty;
+            txt_conf_senha.Text = string.Empty;
+        }
+
+        private void btn_sair_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
