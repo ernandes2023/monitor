@@ -98,12 +98,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppEnums1.cs" />
     <Compile Include="categoria.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="categoria.Designer.cs">
       <DependentUpon>categoria.cs</DependentUpon>
     </Compile>
+    <Compile Include="EnumHelper.cs" />
     <Compile Include="FrmPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -19,14 +19,28 @@ namespace MonitorFinanceiro
             CarregDadosGrm();
         }
 
+        private void FormaPAg()
+        {
+            var values = Enum.GetValues(typeof(AppEnums1.tipoPag)).Cast<AppEnums1.tipoPag>();
+
+            foreach (var value in values)
+            {
+                string description = EnumHelper.GetDescription(value);
+                cbxFrmPag.Items.Add(new { Text = description, Value = value });
+            }
+            cbxFrmPag.DisplayMember = "Text";
+            cbxFrmPag.ValueMember = "Value";
+            cbxFrmPag.SelectedIndex = -1;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            FormaPAg();
         }
         private void CarregDadosGrm()
         {
             // Sua consulta SQL
-            string query = "SELECT * FROM usuario";
+            string query = "SELECT * FROM usuario where is_activated = 1;";
 
             // Criar um DataTable para armazenar os dados
             DataTable tabela = new DataTable();
@@ -80,6 +94,11 @@ namespace MonitorFinanceiro
         }
 
         private void btn_inserir_usuario_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbxFrmPag_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

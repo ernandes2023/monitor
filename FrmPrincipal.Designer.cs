@@ -72,11 +72,11 @@ namespace MonitorFinanceiro
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbxFrmPag = new System.Windows.Forms.ComboBox();
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -508,11 +508,11 @@ namespace MonitorFinanceiro
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.cbxFrmPag);
             this.groupBox4.Controls.Add(this.button9);
             this.groupBox4.Controls.Add(this.button10);
             this.groupBox4.Controls.Add(this.button11);
             this.groupBox4.Controls.Add(this.label14);
-            this.groupBox4.Controls.Add(this.textBox6);
             this.groupBox4.Controls.Add(this.label13);
             this.groupBox4.Controls.Add(this.textBox5);
             this.groupBox4.Controls.Add(this.label12);
@@ -525,6 +525,15 @@ namespace MonitorFinanceiro
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Movimentações";
+            // 
+            // cbxFrmPag
+            // 
+            this.cbxFrmPag.FormattingEnabled = true;
+            this.cbxFrmPag.Location = new System.Drawing.Point(179, 113);
+            this.cbxFrmPag.Name = "cbxFrmPag";
+            this.cbxFrmPag.Size = new System.Drawing.Size(121, 21);
+            this.cbxFrmPag.TabIndex = 17;
+            this.cbxFrmPag.SelectedIndexChanged += new System.EventHandler(this.cbxFrmPag_SelectedIndexChanged);
             // 
             // button9
             // 
@@ -561,13 +570,6 @@ namespace MonitorFinanceiro
             this.label14.Size = new System.Drawing.Size(107, 13);
             this.label14.TabIndex = 7;
             this.label14.Text = "Forma de pagamento";
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(179, 113);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(123, 20);
-            this.textBox6.TabIndex = 6;
             // 
             // label13
             // 
@@ -618,13 +620,13 @@ namespace MonitorFinanceiro
             this.comboBox2.Size = new System.Drawing.Size(221, 21);
             this.comboBox2.TabIndex = 0;
             // 
-            // Form1
+            // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(969, 511);
             this.Controls.Add(this.tabControl1);
-            this.Name = "Form1";
+            this.Name = "FrmPrincipal";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
@@ -697,13 +699,13 @@ namespace MonitorFinanceiro
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbxFrmPag;
     }
 }
 
