@@ -53,11 +53,11 @@ namespace MonitorFinanceiro
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.BtnApagar = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.BtnEditar = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnCadastrar = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txt_categoria = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -89,6 +89,17 @@ namespace MonitorFinanceiro
             this.label11 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.btn_sair = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.BtnLimpar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -129,7 +140,7 @@ namespace MonitorFinanceiro
             this.Nome.Location = new System.Drawing.Point(8, 19);
             this.Nome.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Nome.Name = "Nome";
-            this.Nome.Size = new System.Drawing.Size(45, 16);
+            this.Nome.Size = new System.Drawing.Size(46, 16);
             this.Nome.TabIndex = 2;
             this.Nome.Text = "Nome:";
             // 
@@ -139,7 +150,7 @@ namespace MonitorFinanceiro
             this.label2.Location = new System.Drawing.Point(8, 65);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 16);
+            this.label2.Size = new System.Drawing.Size(49, 16);
             this.label2.TabIndex = 5;
             this.label2.Text = "E-mail:";
             // 
@@ -167,7 +178,7 @@ namespace MonitorFinanceiro
             this.label4.Location = new System.Drawing.Point(8, 111);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 16);
+            this.label4.Size = new System.Drawing.Size(49, 16);
             this.label4.TabIndex = 8;
             this.label4.Text = "Senha:";
             // 
@@ -234,7 +245,7 @@ namespace MonitorFinanceiro
             this.checkBox3.AutoSize = true;
             this.checkBox3.Location = new System.Drawing.Point(317, 64);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(103, 20);
+            this.checkBox3.Size = new System.Drawing.Size(104, 20);
             this.checkBox3.TabIndex = 15;
             this.checkBox3.Text = "Adminstrador";
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -264,7 +275,7 @@ namespace MonitorFinanceiro
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(217, 111);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(88, 16);
+            this.label15.Size = new System.Drawing.Size(89, 16);
             this.label15.TabIndex = 12;
             this.label15.Text = "Confir. Senha:";
             // 
@@ -361,73 +372,84 @@ namespace MonitorFinanceiro
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.BtnLimpar);
+            this.groupBox2.Controls.Add(this.checkBox5);
+            this.groupBox2.Controls.Add(this.BtnApagar);
+            this.groupBox2.Controls.Add(this.BtnEditar);
+            this.groupBox2.Controls.Add(this.checkBox4);
+            this.groupBox2.Controls.Add(this.label18);
+            this.groupBox2.Controls.Add(this.textBox8);
+            this.groupBox2.Controls.Add(this.label19);
+            this.groupBox2.Controls.Add(this.textBox9);
+            this.groupBox2.Controls.Add(this.label17);
+            this.groupBox2.Controls.Add(this.textBox7);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Controls.Add(this.textBox6);
             this.groupBox2.Controls.Add(this.checkBox2);
-            this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.BtnCadastrar);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.txt_categoria);
             this.groupBox2.Location = new System.Drawing.Point(26, 46);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(378, 215);
+            this.groupBox2.Size = new System.Drawing.Size(378, 342);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Entradas e Saídas";
             // 
-            // button3
+            // BtnApagar
             // 
-            this.button3.Location = new System.Drawing.Point(138, 165);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(105, 28);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Apagar";
-            this.button3.UseVisualStyleBackColor = true;
+            this.BtnApagar.Location = new System.Drawing.Point(277, 288);
+            this.BtnApagar.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnApagar.Name = "BtnApagar";
+            this.BtnApagar.Size = new System.Drawing.Size(75, 28);
+            this.BtnApagar.TabIndex = 10;
+            this.BtnApagar.Text = "Apagar";
+            this.BtnApagar.UseVisualStyleBackColor = true;
             // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(292, 103);
+            this.checkBox2.Location = new System.Drawing.Point(107, 107);
             this.checkBox2.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(59, 20);
+            this.checkBox2.Size = new System.Drawing.Size(60, 20);
             this.checkBox2.TabIndex = 5;
             this.checkBox2.Text = "Saída";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // BtnEditar
             // 
-            this.button2.Location = new System.Drawing.Point(23, 165);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(107, 28);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Editar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.BtnEditar.Location = new System.Drawing.Point(195, 288);
+            this.BtnEditar.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnEditar.Name = "BtnEditar";
+            this.BtnEditar.Size = new System.Drawing.Size(75, 28);
+            this.BtnEditar.TabIndex = 9;
+            this.BtnEditar.Text = "Editar";
+            this.BtnEditar.UseVisualStyleBackColor = true;
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(292, 63);
+            this.checkBox1.Location = new System.Drawing.Point(27, 107);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(71, 20);
+            this.checkBox1.Size = new System.Drawing.Size(72, 20);
             this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "Entrada";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // BtnCadastrar
             // 
-            this.button1.Location = new System.Drawing.Point(250, 165);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 28);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Cadastrar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnCadastrar.Location = new System.Drawing.Point(107, 288);
+            this.BtnCadastrar.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnCadastrar.Name = "BtnCadastrar";
+            this.BtnCadastrar.Size = new System.Drawing.Size(79, 28);
+            this.BtnCadastrar.TabIndex = 8;
+            this.BtnCadastrar.Text = "Cadastrar";
+            this.BtnCadastrar.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -435,16 +457,16 @@ namespace MonitorFinanceiro
             this.label6.Location = new System.Drawing.Point(21, 36);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 16);
+            this.label6.Size = new System.Drawing.Size(66, 16);
             this.label6.TabIndex = 1;
             this.label6.Text = "Descrição";
             // 
             // txt_categoria
             // 
-            this.txt_categoria.Location = new System.Drawing.Point(24, 78);
+            this.txt_categoria.Location = new System.Drawing.Point(24, 63);
             this.txt_categoria.Margin = new System.Windows.Forms.Padding(4);
             this.txt_categoria.Name = "txt_categoria";
-            this.txt_categoria.Size = new System.Drawing.Size(247, 22);
+            this.txt_categoria.Size = new System.Drawing.Size(162, 22);
             this.txt_categoria.TabIndex = 0;
             // 
             // tabPage3
@@ -526,7 +548,7 @@ namespace MonitorFinanceiro
             this.label10.Location = new System.Drawing.Point(9, 32);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(121, 16);
+            this.label10.Size = new System.Drawing.Size(122, 16);
             this.label10.TabIndex = 7;
             this.label10.Text = "Selecione o usuário";
             // 
@@ -569,7 +591,7 @@ namespace MonitorFinanceiro
             this.label9.Location = new System.Drawing.Point(9, 206);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(31, 16);
+            this.label9.Size = new System.Drawing.Size(32, 16);
             this.label9.TabIndex = 2;
             this.label9.Text = "Tipo";
             // 
@@ -579,7 +601,7 @@ namespace MonitorFinanceiro
             this.label8.Location = new System.Drawing.Point(9, 150);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(44, 16);
+            this.label8.Size = new System.Drawing.Size(45, 16);
             this.label8.TabIndex = 1;
             this.label8.Text = "Saldo ";
             // 
@@ -589,7 +611,7 @@ namespace MonitorFinanceiro
             this.label7.Location = new System.Drawing.Point(9, 95);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(96, 16);
+            this.label7.Size = new System.Drawing.Size(97, 16);
             this.label7.TabIndex = 0;
             this.label7.Text = "Conta Bancária";
             // 
@@ -682,7 +704,7 @@ namespace MonitorFinanceiro
             this.label14.Location = new System.Drawing.Point(205, 119);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(130, 16);
+            this.label14.Size = new System.Drawing.Size(131, 16);
             this.label14.TabIndex = 7;
             this.label14.Text = "Forma de pagamento";
             // 
@@ -692,7 +714,7 @@ namespace MonitorFinanceiro
             this.label13.Location = new System.Drawing.Point(7, 119);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(36, 16);
+            this.label13.Size = new System.Drawing.Size(37, 16);
             this.label13.TabIndex = 5;
             this.label13.Text = "Valor";
             // 
@@ -710,7 +732,7 @@ namespace MonitorFinanceiro
             this.label12.Location = new System.Drawing.Point(354, 20);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(74, 16);
+            this.label12.Size = new System.Drawing.Size(75, 16);
             this.label12.TabIndex = 3;
             this.label12.Text = "Data e hora";
             // 
@@ -728,7 +750,7 @@ namespace MonitorFinanceiro
             this.label11.Location = new System.Drawing.Point(7, 48);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(132, 16);
+            this.label11.Size = new System.Drawing.Size(133, 16);
             this.label11.TabIndex = 1;
             this.label11.Text = "Selecione a categoria";
             // 
@@ -750,6 +772,110 @@ namespace MonitorFinanceiro
             this.btn_sair.Text = "Sair";
             this.btn_sair.UseVisualStyleBackColor = true;
             this.btn_sair.Click += new System.EventHandler(this.btn_sair_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(21, 155);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(63, 16);
+            this.label16.TabIndex = 12;
+            this.label16.Text = "Categoria";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(20, 182);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(162, 22);
+            this.textBox6.TabIndex = 11;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(187, 155);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(73, 16);
+            this.label17.TabIndex = 14;
+            this.label17.Text = "Fornecedor";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(190, 182);
+            this.textBox7.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(162, 22);
+            this.textBox7.TabIndex = 13;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(187, 216);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(83, 16);
+            this.label18.TabIndex = 18;
+            this.label18.Text = "Observações";
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(190, 243);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(162, 22);
+            this.textBox8.TabIndex = 17;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(17, 216);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(104, 16);
+            this.label19.TabIndex = 16;
+            this.label19.Text = "Data vencimento";
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(20, 243);
+            this.textBox9.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(162, 22);
+            this.textBox9.TabIndex = 15;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(175, 107);
+            this.checkBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(90, 20);
+            this.checkBox4.TabIndex = 19;
+            this.checkBox4.Text = "Recorrente";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(280, 107);
+            this.checkBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(55, 20);
+            this.checkBox5.TabIndex = 20;
+            this.checkBox5.Text = "Ativo";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // BtnLimpar
+            // 
+            this.BtnLimpar.Location = new System.Drawing.Point(20, 288);
+            this.BtnLimpar.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnLimpar.Name = "BtnLimpar";
+            this.BtnLimpar.Size = new System.Drawing.Size(79, 28);
+            this.BtnLimpar.TabIndex = 21;
+            this.BtnLimpar.Text = "Limpar";
+            this.BtnLimpar.UseVisualStyleBackColor = true;
             // 
             // FrmPrincipal
             // 
@@ -805,11 +931,11 @@ namespace MonitorFinanceiro
         private System.Windows.Forms.Button btn_edit;
         private System.Windows.Forms.DataGridView Dgv_usuario;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button BtnApagar;
         private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button BtnEditar;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnCadastrar;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txt_categoria;
         private System.Windows.Forms.TabPage tabPage3;
@@ -847,6 +973,17 @@ namespace MonitorFinanceiro
         private System.Windows.Forms.Button btn_limpar;
         private System.Windows.Forms.Button btn_sair;
         private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Button BtnLimpar;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBox6;
     }
 }
 
