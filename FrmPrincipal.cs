@@ -17,6 +17,7 @@ namespace MonitorFinanceiro
         {
             InitializeComponent();
             CarregDadosGrm();
+            CarregLancamentos();
         }
 
         private void FormaPAg()
@@ -33,10 +34,43 @@ namespace MonitorFinanceiro
             cbxFrmPag.SelectedIndex = -1;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+       private void Form1_Load(object sender, EventArgs e)
         {
             FormaPAg();
+            
         }
+
+        private void CarregLancamentos()
+        {
+            string query = "select nome, categoria, tipo, fornecedor, recorrente, dia_vencimento, observacoes from lancamentos;";
+
+            DataTable tabela = new DataTable(); // Cria o DataTable apenas uma vez
+
+            using (MySqlConnection connection = new MySqlConnection(Program.conexaoBD))
+            {
+                connection.Open();
+
+                using (MySqlDataAdapter adaptador = new MySqlDataAdapter(query, connection))
+                {
+                    adaptador.Fill(tabela); // Preenche o DataTable com os dados do banco
+
+                    // Renomear as colunas conforme necessário
+                    //tabela.Columns["id_lancamentos"].ColumnName = "Id:";
+                    tabela.Columns["nome"].ColumnName = "Lançamento:";
+                    tabela.Columns["categoria"].ColumnName = "Categoria:";
+                    tabela.Columns["tipo"].ColumnName = "Entrada ou Saída";
+                    tabela.Columns["fornecedor"].ColumnName = "Fornecedor";
+                    tabela.Columns["recorrente"].ColumnName = "Recorrente:";
+                    tabela.Columns["dia_vencimento"].ColumnName = "Data Vencimento:";
+                    tabela.Columns["observacoes"].ColumnName = "Observações:";
+                    //tabela.Columns["ativo"].ColumnName = "Ativo:";
+                }
+
+                DgvLancamentos.DataSource = tabela; // Atribui ao DataGridView depois de renomear
+            }
+        }
+
+
         private void CarregDadosGrm()
         {
             // Sua consulta SQL
@@ -209,6 +243,162 @@ namespace MonitorFinanceiro
         private void btn_sair_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void txt_categoria_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox9_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnLimpar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnCadastrar_Click(object sender, EventArgs e)
+        {
+            // Verifica se todos os campos obrigatórios estão preenchidos
+            if (txt_categoria.Text == "" || textBox6.Text == "" || textBox7.Text == "" || textBox9.Text == "")
+            {
+                MessageBox.Show("Todos os campos precisam ser preenchidos!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txt_categoria.Select(); // Coloca o foco no campo de nome caso esteja vazio
+            }
+           
+            else
+            {
+                // Cria uma nova conexão MySqlConnection utilizando a string de conexão definida em Program.conexaoBD
+                MySqlConnection conectar = new MySqlConnection(Program.conexaoBD);
+
+                // Abre a conexão com o banco de dados
+                conectar.Open();
+                try
+                {
+
+                    string query = "INSERT INTO lancamentos " +
+                         "(nome, categoria, tipo, fornecedor, recorrente, dia_vencimento, observacoes, ativo) " +
+                         "VALUES (@nome, @categoria, @tipo, @fornecedor, @recorrente, @dia_vencimento, @observacoes, @ativo);";
+
+                    MySqlCommand cadastrar = new MySqlCommand(query, conectar);
+
+                    // Nome do lançamento (ex: Água, Energia)
+                    cadastrar.Parameters.AddWithValue("@nome", txt_categoria.Text);
+
+                    // Categoria geral (ex: Moradia, Saúde)
+                    cadastrar.Parameters.AddWithValue("@categoria", textBox6.Text);
+
+                    // Tipo do lançamento (Receita ou Despesa)
+                    string tipo = checkBox1.Checked ? "Receita" :
+                                  checkBox2.Checked ? "Despesa" : "Despesa"; // padrão se nenhum marcado
+                    cadastrar.Parameters.AddWithValue("@tipo", tipo);
+
+                    // Nome do fornecedor (opcional)
+                    cadastrar.Parameters.AddWithValue("@fornecedor", textBox7.Text);
+
+                    // Se é recorrente (fixa todo mês)
+                    cadastrar.Parameters.AddWithValue("@recorrente", checkBox4.Checked);
+
+                    // Dia do vencimento (ex: 10)
+                    cadastrar.Parameters.AddWithValue("@dia_vencimento", Convert.ToInt32(textBox9.Text));
+
+                    // Observações adicionais
+                    cadastrar.Parameters.AddWithValue("@observacoes", textBox8.Text); // se houver
+
+                    // Se o lançamento está ativo
+                    cadastrar.Parameters.AddWithValue("@ativo", checkBox5.Checked);
+
+                    // Executa o comando no banco
+                    cadastrar.ExecuteNonQuery();
+
+
+                    // Exibe uma mensagem de sucesso
+                    MessageBox.Show("Cadastro realizado com sucesso!", "Sucesso", MessageBoxButtons.OK);
+
+                    // Limpa campos de texto
+                    txt_categoria.Text = "";
+                    textBox6.Text = "";
+                    textBox7.Text = "";
+                    textBox9.Text = "";
+                    textBox8.Text = "";
+
+                    // Desmarca os checkboxes
+                    checkBox1.Checked = false;
+                    checkBox2.Checked = false;
+                    checkBox4.Checked = false;
+                    checkBox5.Checked = false;
+
+                    // (Opcional) Coloca o cursor no primeiro campo
+                    txt_categoria.Focus();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro não foi possivel Salvar informações: " + ex.Message);
+                }
+                finally
+                {
+                    conectar.Close();
+                }
+
+                // Carrega os dados da tabela usuario no DataGridView dgvUsers
+                using (MySqlConnection conexaoMYSQL = new MySqlConnection(Program.conexaoBD))
+                {
+                    conexaoMYSQL.Open();
+
+                    string query = "SELECT * FROM lancamentos";
+
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, conexaoMYSQL))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        // Renomear as colunas conforme necessário
+                        dt.Columns["id_lancamentos"].ColumnName = "Id:";
+                        dt.Columns["nome"].ColumnName = "Lançamento:";
+                        dt.Columns["categoria"].ColumnName = "Categoria:";
+                        dt.Columns["tipo"].ColumnName = "Entrada ou Saída";
+                        dt.Columns["fornecedor"].ColumnName = "Fornecedor";
+                        dt.Columns["recorrente"].ColumnName = "Recorrente:";
+                        dt.Columns["dia_vencimento"].ColumnName = "data vencimento:";
+                        dt.Columns["observacoes"].ColumnName = "Observações:";
+                        dt.Columns["ativo"].ColumnName = "Ativo:";
+                        DgvLancamentos.DataSource = dt;
+                    }
+                }
+            }
+        }
+
+        private void BtnEditar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnApagar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
