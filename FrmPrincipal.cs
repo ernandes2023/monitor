@@ -359,30 +359,7 @@ namespace MonitorFinanceiro
                     conectar.Close();
                 }
 
-                // Carrega os dados da tabela usuario no DataGridView dgvUsers
-                using (MySqlConnection conexaoMYSQL = new MySqlConnection(Program.conexaoBD))
-                {
-                    conexaoMYSQL.Open();
-
-                    string query = "SELECT * FROM lancamentos";
-
-                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, conexaoMYSQL))
-                    {
-                        DataTable dt = new DataTable();
-                        adapter.Fill(dt);
-                        // Renomear as colunas conforme necessário
-                        dt.Columns["id_lancamentos"].ColumnName = "Id:";
-                        dt.Columns["nome"].ColumnName = "Lançamento:";
-                        dt.Columns["categoria"].ColumnName = "Categoria:";
-                        dt.Columns["tipo"].ColumnName = "Entrada ou Saída";
-                        dt.Columns["fornecedor"].ColumnName = "Fornecedor";
-                        dt.Columns["recorrente"].ColumnName = "Recorrente:";
-                        dt.Columns["dia_vencimento"].ColumnName = "data vencimento:";
-                        dt.Columns["observacoes"].ColumnName = "Observações:";
-                        dt.Columns["ativo"].ColumnName = "Ativo:";
-                        DgvLancamentos.DataSource = dt;
-                    }
-                }
+                
             }
         }
 
