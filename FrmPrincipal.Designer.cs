@@ -60,20 +60,6 @@ namespace MonitorFinanceiro
             this.BtnCadastrar = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txt_categoria = new System.Windows.Forms.TextBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -108,9 +94,6 @@ namespace MonitorFinanceiro
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
-            this.groupBox3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -305,13 +288,12 @@ namespace MonitorFinanceiro
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(14, 15);
+            this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1087, 599);
+            this.tabControl1.Size = new System.Drawing.Size(1087, 601);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
@@ -322,7 +304,7 @@ namespace MonitorFinanceiro
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(1079, 570);
+            this.tabPage1.Size = new System.Drawing.Size(1079, 572);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Usuário";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -356,9 +338,9 @@ namespace MonitorFinanceiro
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(1079, 570);
+            this.tabPage2.Size = new System.Drawing.Size(1079, 572);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Categorias";
+            this.tabPage2.Text = "Lançamentos";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // dataGridView2
@@ -469,152 +451,6 @@ namespace MonitorFinanceiro
             this.txt_categoria.Size = new System.Drawing.Size(162, 22);
             this.txt_categoria.TabIndex = 0;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.dataGridView3);
-            this.tabPage3.Controls.Add(this.groupBox3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1079, 570);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Contas";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView3
-            // 
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(465, 25);
-            this.dataGridView3.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(582, 514);
-            this.dataGridView3.TabIndex = 15;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.button6);
-            this.groupBox3.Controls.Add(this.button7);
-            this.groupBox3.Controls.Add(this.button8);
-            this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Controls.Add(this.comboBox1);
-            this.groupBox3.Controls.Add(this.textBox3);
-            this.groupBox3.Controls.Add(this.textBox2);
-            this.groupBox3.Controls.Add(this.textBox1);
-            this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Location = new System.Drawing.Point(18, 25);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(414, 337);
-            this.groupBox3.TabIndex = 14;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Contas";
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(140, 284);
-            this.button6.Margin = new System.Windows.Forms.Padding(4);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(122, 28);
-            this.button6.TabIndex = 13;
-            this.button6.Text = "Apagar";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(10, 284);
-            this.button7.Margin = new System.Windows.Forms.Padding(4);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(122, 28);
-            this.button7.TabIndex = 12;
-            this.button7.Text = "Editar";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(270, 284);
-            this.button8.Margin = new System.Windows.Forms.Padding(4);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(122, 28);
-            this.button8.TabIndex = 11;
-            this.button8.Text = "Cadastrar";
-            this.button8.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(9, 32);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(122, 16);
-            this.label10.TabIndex = 7;
-            this.label10.Text = "Selecione o usuário";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(163, 32);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(140, 24);
-            this.comboBox1.TabIndex = 6;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(13, 225);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(173, 22);
-            this.textBox3.TabIndex = 5;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(13, 170);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(173, 22);
-            this.textBox2.TabIndex = 4;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(13, 114);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(173, 22);
-            this.textBox1.TabIndex = 3;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 206);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(32, 16);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "Tipo";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 150);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(45, 16);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "Saldo ";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 95);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(97, 16);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Conta Bancária";
-            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.dataGridView4);
@@ -622,7 +458,7 @@ namespace MonitorFinanceiro
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1079, 570);
+            this.tabPage4.Size = new System.Drawing.Size(1079, 572);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Movimentações";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -881,7 +717,7 @@ namespace MonitorFinanceiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1108, 657);
+            this.ClientSize = new System.Drawing.Size(1108, 495);
             this.Controls.Add(this.btn_sair);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -899,10 +735,6 @@ namespace MonitorFinanceiro
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.groupBox4.ResumeLayout(false);
@@ -938,22 +770,8 @@ namespace MonitorFinanceiro
         private System.Windows.Forms.Button BtnCadastrar;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txt_categoria;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.DataGridView dataGridView4;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button9;
