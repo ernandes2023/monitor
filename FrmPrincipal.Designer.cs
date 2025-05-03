@@ -40,6 +40,7 @@ namespace MonitorFinanceiro
             this.txt_senha = new System.Windows.Forms.TextBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.btn_limpar = new System.Windows.Forms.Button();
             this.txt_conf_senha = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -88,7 +89,6 @@ namespace MonitorFinanceiro
             this.label11 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.btn_sair = new System.Windows.Forms.Button();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -228,6 +228,16 @@ namespace MonitorFinanceiro
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cadastro de usuário";
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(317, 64);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(103, 20);
+            this.checkBox3.TabIndex = 15;
+            this.checkBox3.Text = "Adminstrador";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // btn_limpar
             // 
@@ -740,16 +750,6 @@ namespace MonitorFinanceiro
             this.btn_sair.Text = "Sair";
             this.btn_sair.UseVisualStyleBackColor = true;
             this.btn_sair.Click += new System.EventHandler(this.btn_sair_Click);
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(317, 64);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(103, 20);
-            this.checkBox3.TabIndex = 15;
-            this.checkBox3.Text = "Adminstrador";
-            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // FrmPrincipal
             // 

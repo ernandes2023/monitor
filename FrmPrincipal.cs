@@ -71,20 +71,25 @@ namespace MonitorFinanceiro
 
         private void txt_nome_usuario_TextChanged(object sender, EventArgs e)
         {
-
+            txt_nome_usuario.BackColor = ColorTranslator.FromHtml(default);
         }
 
         private void txt_email_TextChanged(object sender, EventArgs e)
         {
-
+            txt_email.BackColor = ColorTranslator.FromHtml(default);
         }
 
         private void txt_senha_TextChanged(object sender, EventArgs e)
         {
-
+            txt_senha.BackColor = ColorTranslator.FromHtml(default);
         }
 
         private void txt_conf_senha_TextChanged(object sender, EventArgs e)
+        {
+            txt_conf_senha.BackColor= ColorTranslator.FromHtml(default);
+        }
+
+        private void txt_conf_senha_Leave(object sender, EventArgs e)
         {
 
         }
@@ -101,9 +106,88 @@ namespace MonitorFinanceiro
 
         private void btn_save_Click(object sender, EventArgs e)
         {
+            string errorMessage = "";
 
+            if (string.IsNullOrWhiteSpace(txt_nome_usuario.Text))
+            {
+                errorMessage += "Nome: \n";
+                txt_nome_usuario.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+            }
+            
+            if (string.IsNullOrWhiteSpace(txt_email.Text))
+            {
+                errorMessage += "Email: \n";
+                txt_email.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+            }
+
+            if(string.IsNullOrWhiteSpace (txt_senha.Text))
+            {
+                errorMessage += "Senha: \n";
+                txt_senha.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+            }
+
+            if (string.IsNullOrWhiteSpace(txt_conf_senha.Text)) 
+            {
+                errorMessage += "Conf. Senha: \n";
+                txt_conf_senha.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+            }
+
+
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                MessageBox.Show($"Os seguintes campos são obrigatórios:\n\n{errorMessage}",
+                    "Campos Obrigatórios", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                // Cria uma nova conexão MySqlConnection utilizando a string de conexão definida em Program.conexaoBD
+                MySqlConnection conectar = new MySqlConnection(Program.conexaoBD);
+
+                // Abre a conexão com o banco de dados
+                conectar.Open();
+                try
+                {
+                    // Define as queries SQL para verificar o email.
+                    string checkEmailQuery = "SELECT COUNT(*) FROM usuario WHERE email = @Email";
+
+                    // Cria comandos MySQL separados para cada query
+                    MySqlCommand checkLoginCmd = new MySqlCommand(checkEmailQuery, conectar);
+
+                    // Adiciona os valores dos parâmetros @Email
+                    checkLoginCmd.Parameters.AddWithValue("@Email", txt_email.Text);
+
+                    // Executa as queries e converte o resultado para inteiros
+                    int loginExists = Convert.ToInt32(checkLoginCmd.ExecuteScalar());
+
+                    if (loginExists > 0)
+                    {
+                        MessageBox.Show("Email já cadastrado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Verifica se o campo senha e cofirmação da senha são diferentes
+                    if (txt_senha.Text != txt_conf_senha.Text)
+                    {
+                        txt_conf_senha.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+                        MessageBox.Show("As Senhas digitadas São diferentes! \n Por Favor digite a senha novamente.",
+                            "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txt_conf_senha.Select();
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro não foi possível salvar as informações: " + ex.Message);
+                }
+                finally
+                {
+                    if (conectar != null)
+                    {
+                        conectar.Close();
+                    }
+                }
+            }
         }
-
         private void cbxFrmPag_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -115,6 +199,11 @@ namespace MonitorFinanceiro
             txt_email.Text = string.Empty;
             txt_senha.Text = string.Empty;
             txt_conf_senha.Text = string.Empty;
+            txt_nome_usuario.BackColor = ColorTranslator.FromHtml(default);
+            txt_email.BackColor = ColorTranslator.FromHtml(default);
+            txt_senha.BackColor = ColorTranslator.FromHtml(default);
+            txt_conf_senha.BackColor = ColorTranslator.FromHtml(default);
+
         }
 
         private void btn_sair_Click(object sender, EventArgs e)
