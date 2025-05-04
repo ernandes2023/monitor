@@ -40,7 +40,7 @@ namespace MonitorFinanceiro
             this.txt_senha = new System.Windows.Forms.TextBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.CheckAdm = new System.Windows.Forms.CheckBox();
             this.btn_limpar = new System.Windows.Forms.Button();
             this.txt_conf_senha = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -123,7 +123,7 @@ namespace MonitorFinanceiro
             this.Nome.Location = new System.Drawing.Point(8, 19);
             this.Nome.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Nome.Name = "Nome";
-            this.Nome.Size = new System.Drawing.Size(46, 16);
+            this.Nome.Size = new System.Drawing.Size(45, 16);
             this.Nome.TabIndex = 2;
             this.Nome.Text = "Nome:";
             // 
@@ -133,7 +133,7 @@ namespace MonitorFinanceiro
             this.label2.Location = new System.Drawing.Point(8, 65);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 16);
+            this.label2.Size = new System.Drawing.Size(48, 16);
             this.label2.TabIndex = 5;
             this.label2.Text = "E-mail:";
             // 
@@ -161,7 +161,7 @@ namespace MonitorFinanceiro
             this.label4.Location = new System.Drawing.Point(8, 111);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(49, 16);
+            this.label4.Size = new System.Drawing.Size(48, 16);
             this.label4.TabIndex = 8;
             this.label4.Text = "Senha:";
             // 
@@ -198,7 +198,7 @@ namespace MonitorFinanceiro
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBox3);
+            this.groupBox1.Controls.Add(this.CheckAdm);
             this.groupBox1.Controls.Add(this.btn_limpar);
             this.groupBox1.Controls.Add(this.txt_conf_senha);
             this.groupBox1.Controls.Add(this.label15);
@@ -214,24 +214,24 @@ namespace MonitorFinanceiro
             this.groupBox1.Controls.Add(this.Nome);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txt_nome_usuario);
-            this.groupBox1.Location = new System.Drawing.Point(7, 7);
+            this.groupBox1.Location = new System.Drawing.Point(8, 8);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(427, 476);
+            this.groupBox1.Size = new System.Drawing.Size(427, 194);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cadastro de usuário";
             // 
-            // checkBox3
+            // CheckAdm
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(317, 64);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(104, 20);
-            this.checkBox3.TabIndex = 15;
-            this.checkBox3.Text = "Adminstrador";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.CheckAdm.AutoSize = true;
+            this.CheckAdm.Location = new System.Drawing.Point(317, 64);
+            this.CheckAdm.Name = "CheckAdm";
+            this.CheckAdm.Size = new System.Drawing.Size(103, 20);
+            this.CheckAdm.TabIndex = 15;
+            this.CheckAdm.Text = "Adminstrador";
+            this.CheckAdm.UseVisualStyleBackColor = true;
             // 
             // btn_limpar
             // 
@@ -258,7 +258,7 @@ namespace MonitorFinanceiro
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(217, 111);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(89, 16);
+            this.label15.Size = new System.Drawing.Size(88, 16);
             this.label15.TabIndex = 12;
             this.label15.Text = "Confir. Senha:";
             // 
@@ -293,7 +293,7 @@ namespace MonitorFinanceiro
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(958, 520);
+            this.tabControl1.Size = new System.Drawing.Size(986, 547);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
@@ -304,7 +304,7 @@ namespace MonitorFinanceiro
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(950, 491);
+            this.tabPage1.Size = new System.Drawing.Size(978, 518);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Usuário";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -312,11 +312,11 @@ namespace MonitorFinanceiro
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.Dgv_usuario);
-            this.groupBox5.Location = new System.Drawing.Point(442, 7);
+            this.groupBox5.Location = new System.Drawing.Point(8, 210);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(629, 489);
+            this.groupBox5.Size = new System.Drawing.Size(962, 300);
             this.groupBox5.TabIndex = 12;
             this.groupBox5.TabStop = false;
             // 
@@ -326,7 +326,7 @@ namespace MonitorFinanceiro
             this.Dgv_usuario.Location = new System.Drawing.Point(8, 19);
             this.Dgv_usuario.Margin = new System.Windows.Forms.Padding(4);
             this.Dgv_usuario.Name = "Dgv_usuario";
-            this.Dgv_usuario.Size = new System.Drawing.Size(504, 457);
+            this.Dgv_usuario.Size = new System.Drawing.Size(946, 273);
             this.Dgv_usuario.TabIndex = 11;
             this.Dgv_usuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_usuario_CellContentClick);
             // 
@@ -338,7 +338,7 @@ namespace MonitorFinanceiro
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(950, 491);
+            this.tabPage2.Size = new System.Drawing.Size(978, 518);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Lançamentos";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -399,7 +399,7 @@ namespace MonitorFinanceiro
             this.checkBox5.Location = new System.Drawing.Point(280, 107);
             this.checkBox5.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(55, 20);
+            this.checkBox5.Size = new System.Drawing.Size(54, 20);
             this.checkBox5.TabIndex = 20;
             this.checkBox5.Text = "Ativo";
             this.checkBox5.UseVisualStyleBackColor = true;
@@ -432,7 +432,7 @@ namespace MonitorFinanceiro
             this.checkBox4.Location = new System.Drawing.Point(175, 107);
             this.checkBox4.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(90, 20);
+            this.checkBox4.Size = new System.Drawing.Size(89, 20);
             this.checkBox4.TabIndex = 19;
             this.checkBox4.Text = "Recorrente";
             this.checkBox4.UseVisualStyleBackColor = true;
@@ -443,7 +443,7 @@ namespace MonitorFinanceiro
             this.label18.Location = new System.Drawing.Point(187, 216);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(83, 16);
+            this.label18.Size = new System.Drawing.Size(82, 16);
             this.label18.TabIndex = 18;
             this.label18.Text = "Observações";
             // 
@@ -462,7 +462,7 @@ namespace MonitorFinanceiro
             this.label19.Location = new System.Drawing.Point(17, 216);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(104, 16);
+            this.label19.Size = new System.Drawing.Size(103, 16);
             this.label19.TabIndex = 16;
             this.label19.Text = "Data vencimento";
             // 
@@ -481,7 +481,7 @@ namespace MonitorFinanceiro
             this.label17.Location = new System.Drawing.Point(187, 155);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(73, 16);
+            this.label17.Size = new System.Drawing.Size(72, 16);
             this.label17.TabIndex = 14;
             this.label17.Text = "Fornecedor";
             // 
@@ -500,7 +500,7 @@ namespace MonitorFinanceiro
             this.label16.Location = new System.Drawing.Point(21, 155);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(63, 16);
+            this.label16.Size = new System.Drawing.Size(62, 16);
             this.label16.TabIndex = 12;
             this.label16.Text = "Categoria";
             // 
@@ -519,7 +519,7 @@ namespace MonitorFinanceiro
             this.checkBox2.Location = new System.Drawing.Point(107, 107);
             this.checkBox2.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(60, 20);
+            this.checkBox2.Size = new System.Drawing.Size(59, 20);
             this.checkBox2.TabIndex = 5;
             this.checkBox2.Text = "Saída";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -530,7 +530,7 @@ namespace MonitorFinanceiro
             this.checkBox1.Location = new System.Drawing.Point(27, 107);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(72, 20);
+            this.checkBox1.Size = new System.Drawing.Size(71, 20);
             this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "Entrada";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -552,7 +552,7 @@ namespace MonitorFinanceiro
             this.label6.Location = new System.Drawing.Point(21, 36);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 16);
+            this.label6.Size = new System.Drawing.Size(65, 16);
             this.label6.TabIndex = 1;
             this.label6.Text = "Descrição";
             // 
@@ -572,7 +572,7 @@ namespace MonitorFinanceiro
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(950, 491);
+            this.tabPage4.Size = new System.Drawing.Size(978, 518);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Movimentações";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -654,7 +654,7 @@ namespace MonitorFinanceiro
             this.label14.Location = new System.Drawing.Point(205, 119);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(131, 16);
+            this.label14.Size = new System.Drawing.Size(130, 16);
             this.label14.TabIndex = 7;
             this.label14.Text = "Forma de pagamento";
             // 
@@ -664,7 +664,7 @@ namespace MonitorFinanceiro
             this.label13.Location = new System.Drawing.Point(7, 119);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(37, 16);
+            this.label13.Size = new System.Drawing.Size(36, 16);
             this.label13.TabIndex = 5;
             this.label13.Text = "Valor";
             // 
@@ -682,7 +682,7 @@ namespace MonitorFinanceiro
             this.label12.Location = new System.Drawing.Point(354, 20);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(75, 16);
+            this.label12.Size = new System.Drawing.Size(74, 16);
             this.label12.TabIndex = 3;
             this.label12.Text = "Data e hora";
             // 
@@ -700,7 +700,7 @@ namespace MonitorFinanceiro
             this.label11.Location = new System.Drawing.Point(7, 48);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(133, 16);
+            this.label11.Size = new System.Drawing.Size(132, 16);
             this.label11.TabIndex = 1;
             this.label11.Text = "Selecione a categoria";
             // 
@@ -715,7 +715,7 @@ namespace MonitorFinanceiro
             // 
             // btn_sair
             // 
-            this.btn_sair.Location = new System.Drawing.Point(1021, 621);
+            this.btn_sair.Location = new System.Drawing.Point(924, 564);
             this.btn_sair.Name = "btn_sair";
             this.btn_sair.Size = new System.Drawing.Size(75, 25);
             this.btn_sair.TabIndex = 12;
@@ -727,7 +727,7 @@ namespace MonitorFinanceiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 543);
+            this.ClientSize = new System.Drawing.Size(1005, 597);
             this.Controls.Add(this.btn_sair);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -800,7 +800,7 @@ namespace MonitorFinanceiro
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button btn_limpar;
         private System.Windows.Forms.Button btn_sair;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox CheckAdm;
         private System.Windows.Forms.Button BtnLimpar;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox4;

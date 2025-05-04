@@ -75,7 +75,7 @@ namespace MonitorFinanceiro
         {
             // Sua consulta SQL
             //string query = "SELECT * FROM usuario where is_activated = 1;";
-            string query = "SELECT * FROM usuario";
+            string query = "SELECT * FROM users";
 
             // Criar um DataTable para armazenar os dados
             DataTable tabela = new DataTable();
@@ -166,7 +166,6 @@ namespace MonitorFinanceiro
                 txt_conf_senha.BackColor = ColorTranslator.FromHtml("#FEC6C6");
             }
 
-
             if (!string.IsNullOrEmpty(errorMessage))
             {
                 MessageBox.Show($"Os seguintes campos são obrigatórios:\n\n{errorMessage}",
@@ -178,11 +177,15 @@ namespace MonitorFinanceiro
                 MySqlConnection conectar = new MySqlConnection(Program.conexaoBD);
 
                 // Abre a conexão com o banco de dados
-                conectar.Open();
+                if (conectar.State != ConnectionState.Open)
+                {
+                    conectar.Open();
+                }
+                
                 try
                 {
                     // Define as queries SQL para verificar o email.
-                    string checkEmailQuery = "SELECT COUNT(*) FROM usuario WHERE email = @Email";
+                    string checkEmailQuery = "SELECT COUNT(*) FROM users WHERE email = @Email";
 
                     // Cria comandos MySQL separados para cada query
                     MySqlCommand checkLoginCmd = new MySqlCommand(checkEmailQuery, conectar);
@@ -195,7 +198,8 @@ namespace MonitorFinanceiro
 
                     if (loginExists > 0)
                     {
-                        MessageBox.Show("Email já cadastrado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Email já cadastrado! \n Por Favor verifique se o email está correto.", "Aviso",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
@@ -208,6 +212,30 @@ namespace MonitorFinanceiro
                         txt_conf_senha.Select();
                         return;
                     }
+
+                    // int UserId = UserSession.User_id; // Varialvel irá armazenar o id do usuario logado no sistema.
+                    int UserId = 5;
+
+                    // Cria um novo comando MySqlCommand para inserir os dados na tabela usuario
+                    MySqlCommand register = new MySqlCommand
+                        ("INSERT INTO users (name_user, email, password, is_admin, created_by, updated_by)" +
+                        "VALUES" +
+                        "(@name_user, @email, @password, @is_admin, @created_by, @updated_by);", conectar);
+
+                    // Adiciona parâmetros ao comando
+                    register.Parameters.AddWithValue("@name_user", txt_nome_usuario.Text);
+                    register.Parameters.AddWithValue("@email", txt_email.Text);
+                    register.Parameters.AddWithValue("@password", txt_senha.Text);
+                    register.Parameters.AddWithValue("@is_admin", CheckAdm.Checked ? 1 : 0);
+                    register.Parameters.AddWithValue("@created_by", UserId);
+                    register.Parameters.AddWithValue("@updated_by", UserId);
+
+                    // Executa o comando de inserção
+                    register.ExecuteNonQuery();
+
+                    // Exibe uma mensagem de sucesso
+                    MessageBox.Show("Dados cadastrado com sucesso!",
+                        "Sucesso", MessageBoxButtons.OK);
                 }
                 catch (Exception ex)
                 {
@@ -215,7 +243,7 @@ namespace MonitorFinanceiro
                 }
                 finally
                 {
-                    if (conectar != null)
+                    if (conectar.State != ConnectionState.Closed)
                     {
                         conectar.Close();
                     }
