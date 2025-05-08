@@ -49,7 +49,7 @@ namespace MonitorFinanceiro
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.Dgv_usuario = new System.Windows.Forms.DataGridView();
+            this.dgvUser = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.DgvLancamentos = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -90,7 +90,7 @@ namespace MonitorFinanceiro
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Dgv_usuario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLancamentos)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -311,7 +311,7 @@ namespace MonitorFinanceiro
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.Dgv_usuario);
+            this.groupBox5.Controls.Add(this.dgvUser);
             this.groupBox5.Location = new System.Drawing.Point(8, 210);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
@@ -320,15 +320,15 @@ namespace MonitorFinanceiro
             this.groupBox5.TabIndex = 12;
             this.groupBox5.TabStop = false;
             // 
-            // Dgv_usuario
+            // dgvUser
             // 
-            this.Dgv_usuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Dgv_usuario.Location = new System.Drawing.Point(8, 19);
-            this.Dgv_usuario.Margin = new System.Windows.Forms.Padding(4);
-            this.Dgv_usuario.Name = "Dgv_usuario";
-            this.Dgv_usuario.Size = new System.Drawing.Size(946, 273);
-            this.Dgv_usuario.TabIndex = 11;
-            this.Dgv_usuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_usuario_CellContentClick);
+            this.dgvUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUser.Location = new System.Drawing.Point(8, 19);
+            this.dgvUser.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvUser.Name = "dgvUser";
+            this.dgvUser.Size = new System.Drawing.Size(946, 273);
+            this.dgvUser.TabIndex = 11;
+            this.dgvUser.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellContentClick);
             // 
             // tabPage2
             // 
@@ -740,7 +740,7 @@ namespace MonitorFinanceiro
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Dgv_usuario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DgvLancamentos)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -771,7 +771,7 @@ namespace MonitorFinanceiro
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button btn_delete;
         private System.Windows.Forms.Button btn_edit;
-        private System.Windows.Forms.DataGridView Dgv_usuario;
+        private System.Windows.Forms.DataGridView dgvUser;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button BtnApagar;
         private System.Windows.Forms.CheckBox checkBox2;

@@ -16,7 +16,7 @@ namespace MonitorFinanceiro
         public FrmPrincipal()
         {
             InitializeComponent();
-            CarregDadosGrm();
+            UpdateDgvUser();
             CarregLancamentos();
         }
 
@@ -38,6 +38,19 @@ namespace MonitorFinanceiro
         {
             FormaPAg();
             
+        }
+        
+        private void ClearTextbox()
+        {
+            txt_nome_usuario.Text = string.Empty;
+            txt_email.Text = string.Empty;
+            txt_senha.Text = string.Empty;
+            txt_conf_senha.Text = string.Empty;
+            txt_nome_usuario.BackColor = ColorTranslator.FromHtml(default);
+            txt_email.BackColor = ColorTranslator.FromHtml(default);
+            txt_senha.BackColor = ColorTranslator.FromHtml(default);
+            txt_conf_senha.BackColor = ColorTranslator.FromHtml(default);
+            CheckAdm.Checked = false;
         }
 
         private void CarregLancamentos()
@@ -70,12 +83,11 @@ namespace MonitorFinanceiro
             }
         }
 
-
-        private void CarregDadosGrm()
+        private void UpdateDgvUser()
         {
             // Sua consulta SQL
             //string query = "SELECT * FROM usuario where is_activated = 1;";
-            string query = "SELECT * FROM users";
+            string query = "SELECT id_user, name_user, email  FROM users";
 
             // Criar um DataTable para armazenar os dados
             DataTable tabela = new DataTable();
@@ -90,15 +102,23 @@ namespace MonitorFinanceiro
                 using (MySqlDataAdapter adaptador = new MySqlDataAdapter(query, connection))
                 {
                     adaptador.Fill(tabela); // Preenche a tabela com os dados do banco
+
+                    // Renomear as colunas conforme necessário
+                    tabela.Columns["id_user"].ColumnName = "ID";
+                    tabela.Columns["name_user"].ColumnName = "NOME";
+                    tabela.Columns["email"].ColumnName = "EMAIL";
                 }
 
                 // Atribuir os dados ao DataGridView
-                Dgv_usuario.DataSource = tabela;
+                dgvUser.DataSource = tabela;
+
+                // Formata as colunas do DataGridView para o tanho auto ajustavel
+                dgvUser.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
         }
 
 
-        private void Dgv_usuario_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvUser_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
@@ -236,6 +256,9 @@ namespace MonitorFinanceiro
                     // Exibe uma mensagem de sucesso
                     MessageBox.Show("Dados cadastrado com sucesso!",
                         "Sucesso", MessageBoxButtons.OK);
+
+                    UpdateDgvUser();
+                    ClearTextbox();
                 }
                 catch (Exception ex)
                 {
@@ -257,15 +280,7 @@ namespace MonitorFinanceiro
 
         private void btn_limpar_Click(object sender, EventArgs e)
         {
-            txt_nome_usuario.Text = string.Empty;
-            txt_email.Text = string.Empty;
-            txt_senha.Text = string.Empty;
-            txt_conf_senha.Text = string.Empty;
-            txt_nome_usuario.BackColor = ColorTranslator.FromHtml(default);
-            txt_email.BackColor = ColorTranslator.FromHtml(default);
-            txt_senha.BackColor = ColorTranslator.FromHtml(default);
-            txt_conf_senha.BackColor = ColorTranslator.FromHtml(default);
-
+            ClearTextbox();
         }
 
         private void btn_sair_Click(object sender, EventArgs e)
