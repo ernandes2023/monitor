@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
@@ -16,28 +17,14 @@ namespace MonitorFinanceiro
         public FrmPrincipal()
         {
             InitializeComponent();
-            UpdateDgvUser();
-            CarregLancamentos();
-        }
-
-        private void FormaPAg()
-        {
-            var values = Enum.GetValues(typeof(AppEnums1.tipoPag)).Cast<AppEnums1.tipoPag>();
-
-            foreach (var value in values)
-            {
-                string description = EnumHelper.GetDescription(value);
-                cbxFrmPag.Items.Add(new { Text = description, Value = value });
-            }
-            cbxFrmPag.DisplayMember = "Text";
-            cbxFrmPag.ValueMember = "Value";
-            cbxFrmPag.SelectedIndex = -1;
         }
 
        private void Form1_Load(object sender, EventArgs e)
         {
-            FormaPAg();
-            
+            CarregLancamentos();
+            ClearTextbox();
+            Load_FrmPag();
+            UpdateDgvUser();
         }
         
         private void ClearTextbox()
@@ -83,6 +70,20 @@ namespace MonitorFinanceiro
             }
         }
 
+        private void Load_FrmPag()
+        {
+            var values = Enum.GetValues(typeof(AppEnums1.tipoPag)).Cast<AppEnums1.tipoPag>();
+
+            foreach (var value in values)
+            {
+                string description = EnumHelper.GetDescription(value);
+                cbxFrmPag.Items.Add(new { Text = description, Value = value });
+            }
+            cbxFrmPag.DisplayMember = "Text";
+            cbxFrmPag.ValueMember = "Value";
+            cbxFrmPag.SelectedIndex = -1;
+        }
+
         private void UpdateDgvUser()
         {
             // Sua consulta SQL
@@ -117,6 +118,54 @@ namespace MonitorFinanceiro
             }
         }
 
+        public bool CheckSecurePassword(string senha)
+        {
+            if (senha.Length < 8)
+            {
+                label8.Text = "A senha deve ter pelo menos 8 caracteres.";
+                label8.ForeColor = ColorTranslator.FromHtml("#FF7575");
+                //MessageBox.Show("A senha deve ter pelo menos 8 caracteres.");
+                return false;
+            }
+
+            if (!Regex.IsMatch(senha, @"[A-Z]"))
+            {
+                label8.Text = "A senha deve conter pelo menos uma letra maiúscula.";
+                label8.ForeColor = ColorTranslator.FromHtml("#FF7575");
+                //MessageBox.Show("A senha deve conter pelo menos uma letra maiúscula.");
+                return false;
+            }
+
+            if (!Regex.IsMatch(senha, @"[a-z]"))
+            {
+                label8.Text = "A senha deve conter pelo menos uma letra minúscula.";
+                label8.ForeColor = ColorTranslator.FromHtml("#FF7575");
+                //MessageBox.Show("A senha deve conter pelo menos uma letra minúscula.");
+                return false;
+            }
+
+            if (!Regex.IsMatch(senha, @"[0-9]"))
+            {
+                label8.Text = "A senha deve conter pelo menos um número.";
+                label8.ForeColor = ColorTranslator.FromHtml("#FF7575");
+                //MessageBox.Show("A senha deve conter pelo menos um número.");
+                return false;
+            }
+
+            if (!Regex.IsMatch(senha, @"[!@#$%^&*(),.?"":{}|<>]"))
+            {
+                label8.Text = "A senha deve conter pelo menos um caractere especial.";
+                label8.ForeColor = ColorTranslator.FromHtml("#FF7575");
+                //MessageBox.Show("A senha deve conter pelo menos um caractere especial.");
+                return false;
+            }
+
+            label8.Text = ("Senha segura!");
+            label8.ForeColor = ColorTranslator.FromHtml("#3C8123");
+
+            //MessageBox.Show("Senha segura!");
+            return true;
+        }
 
         private void dgvUser_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -136,6 +185,17 @@ namespace MonitorFinanceiro
         private void txt_senha_TextChanged(object sender, EventArgs e)
         {
             txt_senha.BackColor = ColorTranslator.FromHtml(default);
+        }
+
+        private void txt_senha_Leave(object sender, EventArgs e)
+        {
+            if (txt_senha.Text != "")
+            {
+                // Chama a função para verificar a segurança da senha
+                string senha = txt_senha.Text;
+                bool senhaSegura = CheckSecurePassword(senha);
+            }
+            return;
         }
 
         private void txt_conf_senha_TextChanged(object sender, EventArgs e)
