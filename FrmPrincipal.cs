@@ -31,13 +31,17 @@ namespace MonitorFinanceiro
         {
             txt_nome_usuario.Text = string.Empty;
             txt_email.Text = string.Empty;
-            txt_senha.Text = string.Empty;
+            //A.Text = string.Empty;
             txt_conf_senha.Text = string.Empty;
+            lblPass1.Text = string.Empty;
+            lblPass2.Text = string.Empty;
+            
             txt_nome_usuario.BackColor = ColorTranslator.FromHtml(default);
             txt_email.BackColor = ColorTranslator.FromHtml(default);
-            txt_senha.BackColor = ColorTranslator.FromHtml(default);
+            txtpass.BackColor = ColorTranslator.FromHtml(default);
             txt_conf_senha.BackColor = ColorTranslator.FromHtml(default);
             CheckAdm.Checked = false;
+
         }
 
         private void CarregLancamentos()
@@ -182,17 +186,59 @@ namespace MonitorFinanceiro
             txt_email.BackColor = ColorTranslator.FromHtml(default);
         }
 
-        private void txt_senha_TextChanged(object sender, EventArgs e)
+        private int CalcularForcaSenha(string senha)
         {
-            txt_senha.BackColor = ColorTranslator.FromHtml(default);
+            int pontuacao = 0;
+
+            if (senha.Length >= 8)
+                pontuacao += 20;
+            if (Regex.IsMatch(senha, @"[a-z]"))
+                pontuacao += 20;
+            if (Regex.IsMatch(senha, @"[A-Z]"))
+                pontuacao += 20;
+            if (Regex.IsMatch(senha, @"[0-9]"))
+                pontuacao += 20;
+            if (Regex.IsMatch(senha, @"[\W_]"))
+                pontuacao += 20;
+
+            return pontuacao;
         }
 
-        private void txt_senha_Leave(object sender, EventArgs e)
+
+        private void txtpass_TextChanged(object sender, EventArgs e)
         {
-            if (txt_senha.Text != "")
+            txtpass.BackColor = ColorTranslator.FromHtml(default);
+
+            string senha = txtpass.Text;
+            int forca = CalcularForcaSenha(senha);
+
+            progressBar1.Value = forca;
+            progressBar1.Invalidate();  // Força a atualização da barra de progresso
+
+            // Muda cor da barra — você precisa criar uma ProgressBar customizada, pois a padrão não permite mudar cor diretamente.
+            if (forca <= 40)
+            {
+                progressBar1.ForeColor = Color.Red;
+                lblPass1.Text = "Senha fraca";
+            }
+            else if (forca <= 80)
+            {
+                progressBar1.ForeColor = Color.Orange;
+                lblPass1.Text = "Senha média";
+            }
+            else
+            {
+                progressBar1.ForeColor = Color.Green;
+                lblPass1.Text = "Senha forte";
+            }
+        }
+
+        private void txtpass_Leave(object sender, EventArgs e)
+        {
+            if (txtpass.Text != "")
             {
                 // Chama a função para verificar a segurança da senha
-                string senha = txt_senha.Text;
+                string senha = txtpass.Text;
                 bool senhaSegura = CheckSecurePassword(senha);
             }
             return;
@@ -201,11 +247,29 @@ namespace MonitorFinanceiro
         private void txt_conf_senha_TextChanged(object sender, EventArgs e)
         {
             txt_conf_senha.BackColor= ColorTranslator.FromHtml(default);
-        }
 
-        private void txt_conf_senha_Leave(object sender, EventArgs e)
-        {
+            string senha = txt_conf_senha.Text;
+            int forca = CalcularForcaSenha(senha);
 
+            progressBar2.Value = forca;
+            progressBar2.Invalidate();  // Força a atualização da barra de progresso
+
+            // Muda cor da barra — você precisa criar uma ProgressBar customizada, pois a padrão não permite mudar cor diretamente.
+            if (forca <= 40)
+            {
+                progressBar2.ForeColor = Color.Red;
+                lblPass2.Text = "Senha fraca";
+            }
+            else if (forca <= 80)
+            {
+                progressBar2.ForeColor = Color.Orange;
+                lblPass2.Text = "Senha média";
+            }
+            else
+            {
+                progressBar2.ForeColor = Color.Green;
+                lblPass2.Text = "Senha forte";
+            }
         }
 
         private void btn_edit_Click(object sender, EventArgs e)
@@ -234,10 +298,10 @@ namespace MonitorFinanceiro
                 txt_email.BackColor = ColorTranslator.FromHtml("#FEC6C6");
             }
 
-            if(string.IsNullOrWhiteSpace (txt_senha.Text))
+            if(string.IsNullOrWhiteSpace (txtpass.Text))
             {
                 errorMessage += "Senha: \n";
-                txt_senha.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+                txtpass.BackColor = ColorTranslator.FromHtml("#FEC6C6");
             }
 
             if (string.IsNullOrWhiteSpace(txt_conf_senha.Text)) 
@@ -284,7 +348,7 @@ namespace MonitorFinanceiro
                     }
 
                     // Verifica se o campo senha e cofirmação da senha são diferentes
-                    if (txt_senha.Text != txt_conf_senha.Text)
+                    if (txtpass.Text != txt_conf_senha.Text)
                     {
                         txt_conf_senha.BackColor = ColorTranslator.FromHtml("#FEC6C6");
                         MessageBox.Show("As Senhas digitadas São diferentes! \n Por Favor digite a senha novamente.",
@@ -305,7 +369,7 @@ namespace MonitorFinanceiro
                     // Adiciona parâmetros ao comando
                     register.Parameters.AddWithValue("@name_user", txt_nome_usuario.Text);
                     register.Parameters.AddWithValue("@email", txt_email.Text);
-                    register.Parameters.AddWithValue("@password", txt_senha.Text);
+                    register.Parameters.AddWithValue("@password", txtpass.Text);
                     register.Parameters.AddWithValue("@is_admin", CheckAdm.Checked ? 1 : 0);
                     register.Parameters.AddWithValue("@created_by", UserId);
                     register.Parameters.AddWithValue("@updated_by", UserId);
@@ -479,6 +543,20 @@ namespace MonitorFinanceiro
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void txt_conf_senha_Leave(object sender, EventArgs e)
+        {
+            if (txt_conf_senha.Text != txtpass.Text)
+            {
+                label8.Text = "As senhas não coincidem. Por favor, verifique.";
+                label8.ForeColor = ColorTranslator.FromHtml("#FF7575");
+            }
+            else
+            {
+                label8.Text = "As senhas coincidem.";
+                label8.ForeColor = ColorTranslator.FromHtml("#3C8123");
+            }
         }
     }
 }
