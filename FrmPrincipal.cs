@@ -31,15 +31,15 @@ namespace MonitorFinanceiro
         {
             txt_nome_usuario.Text = string.Empty;
             txt_email.Text = string.Empty;
-            //A.Text = string.Empty;
-            txt_conf_senha.Text = string.Empty;
+            txtpass.Text = string.Empty;
+            txtConfPass.Text = string.Empty;
             lblPass1.Text = string.Empty;
             lblPass2.Text = string.Empty;
-            
+            lblWarning.Text = string.Empty;
             txt_nome_usuario.BackColor = ColorTranslator.FromHtml(default);
             txt_email.BackColor = ColorTranslator.FromHtml(default);
             txtpass.BackColor = ColorTranslator.FromHtml(default);
-            txt_conf_senha.BackColor = ColorTranslator.FromHtml(default);
+            txtConfPass.BackColor = ColorTranslator.FromHtml(default);
             CheckAdm.Checked = false;
 
         }
@@ -126,46 +126,46 @@ namespace MonitorFinanceiro
         {
             if (senha.Length < 8)
             {
-                label8.Text = "A senha deve ter pelo menos 8 caracteres.";
-                label8.ForeColor = ColorTranslator.FromHtml("#FF7575");
+                lblWarning.Text = "A senha deve ter pelo menos 8 caracteres.";
+                lblWarning.ForeColor = ColorTranslator.FromHtml("#FF7575");
                 //MessageBox.Show("A senha deve ter pelo menos 8 caracteres.");
                 return false;
             }
 
             if (!Regex.IsMatch(senha, @"[A-Z]"))
             {
-                label8.Text = "A senha deve conter pelo menos uma letra maiúscula.";
-                label8.ForeColor = ColorTranslator.FromHtml("#FF7575");
+                lblWarning.Text = "A senha deve conter pelo menos uma letra maiúscula.";
+                lblWarning.ForeColor = ColorTranslator.FromHtml("#FF7575");
                 //MessageBox.Show("A senha deve conter pelo menos uma letra maiúscula.");
                 return false;
             }
 
             if (!Regex.IsMatch(senha, @"[a-z]"))
             {
-                label8.Text = "A senha deve conter pelo menos uma letra minúscula.";
-                label8.ForeColor = ColorTranslator.FromHtml("#FF7575");
+                lblWarning.Text = "A senha deve conter pelo menos uma letra minúscula.";
+                lblWarning.ForeColor = ColorTranslator.FromHtml("#FF7575");
                 //MessageBox.Show("A senha deve conter pelo menos uma letra minúscula.");
                 return false;
             }
 
             if (!Regex.IsMatch(senha, @"[0-9]"))
             {
-                label8.Text = "A senha deve conter pelo menos um número.";
-                label8.ForeColor = ColorTranslator.FromHtml("#FF7575");
+                lblWarning.Text = "A senha deve conter pelo menos um número.";
+                lblWarning.ForeColor = ColorTranslator.FromHtml("#FF7575");
                 //MessageBox.Show("A senha deve conter pelo menos um número.");
                 return false;
             }
 
             if (!Regex.IsMatch(senha, @"[!@#$%^&*(),.?"":{}|<>]"))
             {
-                label8.Text = "A senha deve conter pelo menos um caractere especial.";
-                label8.ForeColor = ColorTranslator.FromHtml("#FF7575");
+                lblWarning.Text = "A senha deve conter pelo menos um caractere especial.";
+                lblWarning.ForeColor = ColorTranslator.FromHtml("#FF7575");
                 //MessageBox.Show("A senha deve conter pelo menos um caractere especial.");
                 return false;
             }
 
-            label8.Text = ("Senha segura!");
-            label8.ForeColor = ColorTranslator.FromHtml("#3C8123");
+            lblWarning.Text = ("Senha segura!");
+            lblWarning.ForeColor = ColorTranslator.FromHtml("#3C8123");
 
             //MessageBox.Show("Senha segura!");
             return true;
@@ -216,7 +216,13 @@ namespace MonitorFinanceiro
             progressBar1.Invalidate();  // Força a atualização da barra de progresso
 
             // Muda cor da barra — você precisa criar uma ProgressBar customizada, pois a padrão não permite mudar cor diretamente.
-            if (forca <= 40)
+
+            if (forca == 0)
+            {
+                progressBar1.ForeColor = Color.Red;
+                lblPass1.Text = "";
+            }
+            else if (forca <= 40)
             {
                 progressBar1.ForeColor = Color.Red;
                 lblPass1.Text = "Senha fraca";
@@ -244,18 +250,23 @@ namespace MonitorFinanceiro
             return;
         }
 
-        private void txt_conf_senha_TextChanged(object sender, EventArgs e)
+        private void txtConfPass_TextChanged(object sender, EventArgs e)
         {
-            txt_conf_senha.BackColor= ColorTranslator.FromHtml(default);
+            txtConfPass.BackColor= ColorTranslator.FromHtml(default);
 
-            string senha = txt_conf_senha.Text;
+            string senha = txtConfPass.Text;
             int forca = CalcularForcaSenha(senha);
 
             progressBar2.Value = forca;
             progressBar2.Invalidate();  // Força a atualização da barra de progresso
 
-            // Muda cor da barra — você precisa criar uma ProgressBar customizada, pois a padrão não permite mudar cor diretamente.
-            if (forca <= 40)
+            // Muda cor da barra
+            if (forca == 0)
+            {
+                progressBar1.ForeColor = Color.Red;
+                lblPass2.Text = "";
+            }
+            else if (forca <= 40)
             {
                 progressBar2.ForeColor = Color.Red;
                 lblPass2.Text = "Senha fraca";
@@ -269,6 +280,23 @@ namespace MonitorFinanceiro
             {
                 progressBar2.ForeColor = Color.Green;
                 lblPass2.Text = "Senha forte";
+            }
+        }
+
+        private void txtConfPass_Leave(object sender, EventArgs e)
+        {
+            if (txtConfPass.Text != string.Empty || txtpass.Text != string.Empty)
+            {
+                if (txtConfPass.Text != txtpass.Text)
+                {
+                    lblWarning.Text = "As senhas não coincidem. Por favor, verifique.";
+                    lblWarning.ForeColor = ColorTranslator.FromHtml("#FF7575");
+                }
+                else
+                {
+                    lblWarning.Text = "Tudo Certo!";
+                    lblWarning.ForeColor = ColorTranslator.FromHtml("#3C8123");
+                }
             }
         }
 
@@ -304,10 +332,10 @@ namespace MonitorFinanceiro
                 txtpass.BackColor = ColorTranslator.FromHtml("#FEC6C6");
             }
 
-            if (string.IsNullOrWhiteSpace(txt_conf_senha.Text)) 
+            if (string.IsNullOrWhiteSpace(txtConfPass.Text)) 
             {
                 errorMessage += "Conf. Senha: \n";
-                txt_conf_senha.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+                txtConfPass.BackColor = ColorTranslator.FromHtml("#FEC6C6");
             }
 
             if (!string.IsNullOrEmpty(errorMessage))
@@ -348,12 +376,12 @@ namespace MonitorFinanceiro
                     }
 
                     // Verifica se o campo senha e cofirmação da senha são diferentes
-                    if (txtpass.Text != txt_conf_senha.Text)
+                    if (txtpass.Text != txtConfPass.Text)
                     {
-                        txt_conf_senha.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+                        txtConfPass.BackColor = ColorTranslator.FromHtml("#FEC6C6");
                         MessageBox.Show("As Senhas digitadas São diferentes! \n Por Favor digite a senha novamente.",
                             "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        txt_conf_senha.Select();
+                        txtConfPass.Select();
                         return;
                     }
 
@@ -543,20 +571,6 @@ namespace MonitorFinanceiro
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-        }
-
-        private void txt_conf_senha_Leave(object sender, EventArgs e)
-        {
-            if (txt_conf_senha.Text != txtpass.Text)
-            {
-                label8.Text = "As senhas não coincidem. Por favor, verifique.";
-                label8.ForeColor = ColorTranslator.FromHtml("#FF7575");
-            }
-            else
-            {
-                label8.Text = "As senhas coincidem.";
-                label8.ForeColor = ColorTranslator.FromHtml("#3C8123");
-            }
         }
     }
 }
