@@ -90,6 +90,13 @@ namespace MonitorFinanceiro
             this.label11 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.btn_sair = new System.Windows.Forms.Button();
+            this.PanelLogin = new System.Windows.Forms.Panel();
+            this.txtPassLogin = new System.Windows.Forms.TextBox();
+            this.txtEmailLogin = new System.Windows.Forms.TextBox();
+            this.LblPassword = new System.Windows.Forms.Label();
+            this.LblEmail = new System.Windows.Forms.Label();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.LblNameUser = new System.Windows.Forms.Label();
             this.progressBar2 = new ProgressBarCustomizada();
             this.progressBar1 = new ProgressBarCustomizada();
             this.groupBox1.SuspendLayout();
@@ -103,6 +110,7 @@ namespace MonitorFinanceiro
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.groupBox4.SuspendLayout();
+            this.PanelLogin.SuspendLayout();
             this.SuspendLayout();
             // 
             // txt_nome_usuario
@@ -308,11 +316,12 @@ namespace MonitorFinanceiro
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(13, 10);
+            this.tabControl1.Location = new System.Drawing.Point(13, 9);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(986, 587);
+            this.tabControl1.Size = new System.Drawing.Size(988, 589);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
@@ -323,7 +332,7 @@ namespace MonitorFinanceiro
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(978, 558);
+            this.tabPage1.Size = new System.Drawing.Size(980, 560);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Usuário";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -335,7 +344,7 @@ namespace MonitorFinanceiro
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(962, 254);
+            this.groupBox5.Size = new System.Drawing.Size(964, 256);
             this.groupBox5.TabIndex = 12;
             this.groupBox5.TabStop = false;
             // 
@@ -345,9 +354,10 @@ namespace MonitorFinanceiro
             this.dgvUser.Location = new System.Drawing.Point(8, 23);
             this.dgvUser.Margin = new System.Windows.Forms.Padding(4);
             this.dgvUser.Name = "dgvUser";
-            this.dgvUser.Size = new System.Drawing.Size(946, 223);
+            this.dgvUser.Size = new System.Drawing.Size(948, 225);
             this.dgvUser.TabIndex = 11;
             this.dgvUser.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellContentClick);
+            this.dgvUser.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellContentDoubleClick);
             // 
             // tabPage2
             // 
@@ -357,7 +367,7 @@ namespace MonitorFinanceiro
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(978, 558);
+            this.tabPage2.Size = new System.Drawing.Size(980, 560);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Lançamentos";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -591,7 +601,7 @@ namespace MonitorFinanceiro
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(978, 558);
+            this.tabPage4.Size = new System.Drawing.Size(980, 560);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Movimentações";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -602,7 +612,7 @@ namespace MonitorFinanceiro
             this.dataGridView4.Location = new System.Drawing.Point(566, 25);
             this.dataGridView4.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.Size = new System.Drawing.Size(490, 517);
+            this.dataGridView4.Size = new System.Drawing.Size(399, 517);
             this.dataGridView4.TabIndex = 1;
             // 
             // groupBox4
@@ -734,13 +744,84 @@ namespace MonitorFinanceiro
             // 
             // btn_sair
             // 
-            this.btn_sair.Location = new System.Drawing.Point(918, 604);
+            this.btn_sair.Location = new System.Drawing.Point(927, 609);
             this.btn_sair.Name = "btn_sair";
             this.btn_sair.Size = new System.Drawing.Size(75, 25);
             this.btn_sair.TabIndex = 12;
             this.btn_sair.Text = "Sair";
             this.btn_sair.UseVisualStyleBackColor = true;
             this.btn_sair.Click += new System.EventHandler(this.btn_sair_Click);
+            // 
+            // PanelLogin
+            // 
+            this.PanelLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelLogin.Controls.Add(this.txtPassLogin);
+            this.PanelLogin.Controls.Add(this.txtEmailLogin);
+            this.PanelLogin.Controls.Add(this.LblPassword);
+            this.PanelLogin.Controls.Add(this.LblEmail);
+            this.PanelLogin.Controls.Add(this.btnLogin);
+            this.PanelLogin.Location = new System.Drawing.Point(12, 12);
+            this.PanelLogin.Name = "PanelLogin";
+            this.PanelLogin.Size = new System.Drawing.Size(384, 150);
+            this.PanelLogin.TabIndex = 13;
+            // 
+            // txtPassLogin
+            // 
+            this.txtPassLogin.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassLogin.Location = new System.Drawing.Point(6, 87);
+            this.txtPassLogin.Name = "txtPassLogin";
+            this.txtPassLogin.PasswordChar = '•';
+            this.txtPassLogin.Size = new System.Drawing.Size(239, 25);
+            this.txtPassLogin.TabIndex = 4;
+            this.txtPassLogin.UseSystemPasswordChar = true;
+            // 
+            // txtEmailLogin
+            // 
+            this.txtEmailLogin.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmailLogin.Location = new System.Drawing.Point(6, 29);
+            this.txtEmailLogin.Name = "txtEmailLogin";
+            this.txtEmailLogin.Size = new System.Drawing.Size(370, 25);
+            this.txtEmailLogin.TabIndex = 3;
+            // 
+            // LblPassword
+            // 
+            this.LblPassword.AutoSize = true;
+            this.LblPassword.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblPassword.Location = new System.Drawing.Point(3, 67);
+            this.LblPassword.Name = "LblPassword";
+            this.LblPassword.Size = new System.Drawing.Size(54, 17);
+            this.LblPassword.TabIndex = 2;
+            this.LblPassword.Text = "Senha:";
+            // 
+            // LblEmail
+            // 
+            this.LblEmail.AutoSize = true;
+            this.LblEmail.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblEmail.Location = new System.Drawing.Point(3, 9);
+            this.LblEmail.Name = "LblEmail";
+            this.LblEmail.Size = new System.Drawing.Size(49, 17);
+            this.LblEmail.TabIndex = 1;
+            this.LblEmail.Text = "Email:";
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.Location = new System.Drawing.Point(251, 85);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(125, 27);
+            this.btnLogin.TabIndex = 0;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // LblNameUser
+            // 
+            this.LblNameUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LblNameUser.Location = new System.Drawing.Point(566, 9);
+            this.LblNameUser.Name = "LblNameUser";
+            this.LblNameUser.Size = new System.Drawing.Size(437, 21);
+            this.LblNameUser.TabIndex = 14;
+            this.LblNameUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // progressBar2
             // 
@@ -762,9 +843,11 @@ namespace MonitorFinanceiro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1005, 641);
+            this.ClientSize = new System.Drawing.Size(1014, 646);
+            this.Controls.Add(this.LblNameUser);
             this.Controls.Add(this.btn_sair);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.PanelLogin);
             this.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmPrincipal";
@@ -785,6 +868,8 @@ namespace MonitorFinanceiro
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.PanelLogin.ResumeLayout(false);
+            this.PanelLogin.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -851,6 +936,13 @@ namespace MonitorFinanceiro
         private ProgressBarCustomizada progressBar1;
         private ProgressBarCustomizada progressBar2;
         private Label lblPass2;
+        private Panel PanelLogin;
+        private TextBox txtPassLogin;
+        private TextBox txtEmailLogin;
+        private Label LblPassword;
+        private Label LblEmail;
+        private Button btnLogin;
+        private Label LblNameUser;
     }
 }
 

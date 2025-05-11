@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using MySql.Data.MySqlClient;
 
 namespace MonitorFinanceiro
@@ -25,6 +27,8 @@ namespace MonitorFinanceiro
             ClearTextbox();
             Load_FrmPag();
             UpdateDgvUser();
+
+            tabControl1.Visible = false;
         }
         
         private void ClearTextbox()
@@ -46,31 +50,49 @@ namespace MonitorFinanceiro
 
         private void CarregLancamentos()
         {
-            string query = "select nome, categoria, tipo, fornecedor, recorrente, dia_vencimento, observacoes from lancamentos;";
+            string query = "SELECT nome, categoria, tipo, fornecedor, recorrente, dia_vencimento, observacoes FROM lancamentos;";
 
             DataTable tabela = new DataTable(); // Cria o DataTable apenas uma vez
 
             using (MySqlConnection connection = new MySqlConnection(Program.conexaoBD))
             {
-                connection.Open();
-
-                using (MySqlDataAdapter adaptador = new MySqlDataAdapter(query, connection))
+                try
                 {
-                    adaptador.Fill(tabela); // Preenche o DataTable com os dados do banco
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
 
-                    // Renomear as colunas conforme necessário
-                    //tabela.Columns["id_lancamentos"].ColumnName = "Id:";
-                    tabela.Columns["nome"].ColumnName = "Lançamento:";
-                    tabela.Columns["categoria"].ColumnName = "Categoria:";
-                    tabela.Columns["tipo"].ColumnName = "Entrada ou Saída";
-                    tabela.Columns["fornecedor"].ColumnName = "Fornecedor";
-                    tabela.Columns["recorrente"].ColumnName = "Recorrente:";
-                    tabela.Columns["dia_vencimento"].ColumnName = "Data Vencimento:";
-                    tabela.Columns["observacoes"].ColumnName = "Observações:";
-                    //tabela.Columns["ativo"].ColumnName = "Ativo:";
+                    using (MySqlDataAdapter adaptador = new MySqlDataAdapter(query, connection))
+                    {
+                        adaptador.Fill(tabela); // Preenche o DataTable com os dados do banco
+
+                        // Renomear as colunas conforme necessário
+                        //tabela.Columns["id_lancamentos"].ColumnName = "Id:";
+                        tabela.Columns["nome"].ColumnName = "Lançamento:";
+                        tabela.Columns["categoria"].ColumnName = "Categoria:";
+                        tabela.Columns["tipo"].ColumnName = "Entrada ou Saída";
+                        tabela.Columns["fornecedor"].ColumnName = "Fornecedor";
+                        tabela.Columns["recorrente"].ColumnName = "Recorrente:";
+                        tabela.Columns["dia_vencimento"].ColumnName = "Data Vencimento:";
+                        tabela.Columns["observacoes"].ColumnName = "Observações:";
+                        //tabela.Columns["ativo"].ColumnName = "Ativo:";
+                    }
+
+                    DgvLancamentos.DataSource = tabela; // Atribui ao DataGridView depois de renomear
                 }
-
-                DgvLancamentos.DataSource = tabela; // Atribui ao DataGridView depois de renomear
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro, não foi possível estabeler conexão com o banco de dados: " + ex.Message);
+                    
+                }
+                finally
+                {
+                    if (connection.State != ConnectionState.Closed)
+                    {
+                        connection.Close();
+                    }
+                }
             }
         }
 
@@ -91,8 +113,8 @@ namespace MonitorFinanceiro
         private void UpdateDgvUser()
         {
             // Sua consulta SQL
-            //string query = "SELECT * FROM usuario where is_activated = 1;";
-            string query = "SELECT id_user, name_user, email  FROM users";
+            string query = "SELECT id_user, name_user, email  FROM users WHERE is_activated = 1;";
+            //string query = "SELECT id_user, name_user, email  FROM users";
 
             // Criar um DataTable para armazenar os dados
             DataTable tabela = new DataTable();
@@ -100,25 +122,41 @@ namespace MonitorFinanceiro
             // Conectar ao banco
             using (MySqlConnection connection = new MySqlConnection(Program.conexaoBD))
             {
-                // Abrir conexão
-                connection.Open();
-
-                // Adaptador para preencher o DataTable com os resultados da query
-                using (MySqlDataAdapter adaptador = new MySqlDataAdapter(query, connection))
+                try
                 {
-                    adaptador.Fill(tabela); // Preenche a tabela com os dados do banco
+                    if(connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
 
-                    // Renomear as colunas conforme necessário
-                    tabela.Columns["id_user"].ColumnName = "ID";
-                    tabela.Columns["name_user"].ColumnName = "NOME";
-                    tabela.Columns["email"].ColumnName = "EMAIL";
+                    // Adaptador para preencher o DataTable com os resultados da query
+                    using (MySqlDataAdapter adaptador = new MySqlDataAdapter(query, connection))
+                    {
+                        adaptador.Fill(tabela); // Preenche a tabela com os dados do banco
+
+                        // Renomear as colunas conforme necessário
+                        tabela.Columns["id_user"].ColumnName = "ID";
+                        tabela.Columns["name_user"].ColumnName = "NOME";
+                        tabela.Columns["email"].ColumnName = "EMAIL";
+                    }
+
+                    // Atribuir os dados ao DataGridView
+                    dgvUser.DataSource = tabela;
+
+                    // Formata as colunas do DataGridView para o tanho auto ajustavel
+                    dgvUser.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 }
-
-                // Atribuir os dados ao DataGridView
-                dgvUser.DataSource = tabela;
-
-                // Formata as colunas do DataGridView para o tanho auto ajustavel
-                dgvUser.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Erro, não foi possível estabeler conexão com o banco de dados: " + ex.Message);
+                }
+                finally
+                {
+                    if (connection.State != ConnectionState.Closed) 
+                    {
+                        connection.Close();
+                    }
+                }
             }
         }
 
@@ -173,6 +211,13 @@ namespace MonitorFinanceiro
 
         private void dgvUser_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void dgvUser_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txt_nome_usuario.Text = dgvUser.Rows[e.RowIndex].Cells[1].Value.ToString();
+            txt_email.Text = dgvUser.Rows[e.RowIndex].Cells[2].Value.ToString();
 
         }
 
@@ -346,12 +391,12 @@ namespace MonitorFinanceiro
             else
             {
                 // Cria uma nova conexão MySqlConnection utilizando a string de conexão definida em Program.conexaoBD
-                MySqlConnection conectar = new MySqlConnection(Program.conexaoBD);
+                MySqlConnection conn = new MySqlConnection(Program.conexaoBD);
 
                 // Abre a conexão com o banco de dados
-                if (conectar.State != ConnectionState.Open)
+                if (conn.State != ConnectionState.Open)
                 {
-                    conectar.Open();
+                    conn.Open();
                 }
                 
                 try
@@ -360,7 +405,7 @@ namespace MonitorFinanceiro
                     string checkEmailQuery = "SELECT COUNT(*) FROM users WHERE email = @Email";
 
                     // Cria comandos MySQL separados para cada query
-                    MySqlCommand checkLoginCmd = new MySqlCommand(checkEmailQuery, conectar);
+                    MySqlCommand checkLoginCmd = new MySqlCommand(checkEmailQuery, conn);
 
                     // Adiciona os valores dos parâmetros @Email
                     checkLoginCmd.Parameters.AddWithValue("@Email", txt_email.Text);
@@ -386,24 +431,23 @@ namespace MonitorFinanceiro
                     }
 
                     // int UserId = UserSession.User_id; // Varialvel irá armazenar o id do usuario logado no sistema.
-                    int UserId = 5;
+                    //UserId = 5;
 
                     // Cria um novo comando MySqlCommand para inserir os dados na tabela usuario
-                    MySqlCommand register = new MySqlCommand
+                    MySqlCommand insertDB = new MySqlCommand
                         ("INSERT INTO users (name_user, email, password, is_admin, created_by, updated_by)" +
                         "VALUES" +
-                        "(@name_user, @email, @password, @is_admin, @created_by, @updated_by);", conectar);
+                        "(@name_user, @email, @password, @is_admin, @created_by, @updated_by);", conn);
 
-                    // Adiciona parâmetros ao comando
-                    register.Parameters.AddWithValue("@name_user", txt_nome_usuario.Text);
-                    register.Parameters.AddWithValue("@email", txt_email.Text);
-                    register.Parameters.AddWithValue("@password", txtpass.Text);
-                    register.Parameters.AddWithValue("@is_admin", CheckAdm.Checked ? 1 : 0);
-                    register.Parameters.AddWithValue("@created_by", UserId);
-                    register.Parameters.AddWithValue("@updated_by", UserId);
+                    insertDB.Parameters.Add("@name_user", MySqlDbType.VarChar).Value = txt_nome_usuario.Text;
+                    insertDB.Parameters.Add("@email", MySqlDbType.VarChar).Value = txt_email.Text;
+                    insertDB.Parameters.Add("@password", MySqlDbType.VarChar).Value = BCrypt.Net.BCrypt.HashPassword(txtpass.Text);
+                    insertDB.Parameters.Add("@is_admin", MySqlDbType.VarChar).Value = CheckAdm.Checked ? 1 : 0;
+                    insertDB.Parameters.Add("@Created_by", MySqlDbType.Int32).Value = UserId;
+                    insertDB.Parameters.Add("@Updated_by", MySqlDbType.Int32).Value = UserId;
 
                     // Executa o comando de inserção
-                    register.ExecuteNonQuery();
+                    insertDB.ExecuteNonQuery();
 
                     // Exibe uma mensagem de sucesso
                     MessageBox.Show("Dados cadastrado com sucesso!",
@@ -418,9 +462,9 @@ namespace MonitorFinanceiro
                 }
                 finally
                 {
-                    if (conectar.State != ConnectionState.Closed)
+                    if (conn.State != ConnectionState.Closed)
                     {
-                        conectar.Close();
+                        conn.Close();
                     }
                 }
             }
@@ -571,6 +615,74 @@ namespace MonitorFinanceiro
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        int UserId; // Variavel para armazenar o id do usuario logado no sistema.
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            string usuario = txtEmailLogin.Text.Trim();
+            string senhaDigitada = txtPassLogin.Text;
+
+            if (string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(senhaDigitada))
+            {
+                MessageBox.Show("Todos os campos devem ser preenchidos!",
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(Program.conexaoBD))
+                {
+                    conn.Open();
+
+                    string query = "SELECT id_user, name_user, password FROM users WHERE email = @Email";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Email", usuario);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                UserId = reader.GetInt32("id_user");
+                                string nameUser = reader.GetString("name_user");
+                                string hashSalvo = reader.GetString("password");
+                                
+                                bool senhaCorreta = BCrypt.Net.BCrypt.Verify(senhaDigitada, hashSalvo);
+
+                                if (senhaCorreta)
+                                {
+                                    MessageBox.Show("Login Bem-sucedido! \n Seja bem vindo " + UserId + " - "+ nameUser +".", "Sucesso",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                    // Exemplo: abrir tela principal
+                                    //new user_regist().Show();
+                                    //this.Hide();
+                                    tabControl1.Visible = true;
+                                    LblNameUser.Text = $"Olá seja bem vindo {nameUser}. ";
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Senha incorreta.", "Erro",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Usuário não encontrado.", "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Erro ao conectar com o banco de dados: " + ex.Message,
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
