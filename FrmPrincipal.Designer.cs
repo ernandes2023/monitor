@@ -41,10 +41,14 @@ namespace MonitorFinanceiro
             this.txtpass = new System.Windows.Forms.TextBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnShowPass2 = new System.Windows.Forms.Button();
             this.lblWarning = new System.Windows.Forms.Label();
+            this.btnShowPass = new System.Windows.Forms.Button();
             this.lblPass2 = new System.Windows.Forms.Label();
+            this.progressBar2 = new ProgressBarCustomizada();
             this.CheckAdm = new System.Windows.Forms.CheckBox();
             this.lblPass1 = new System.Windows.Forms.Label();
+            this.progressBar1 = new ProgressBarCustomizada();
             this.btn_limpar = new System.Windows.Forms.Button();
             this.txtConfPass = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -91,14 +95,14 @@ namespace MonitorFinanceiro
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.btn_sair = new System.Windows.Forms.Button();
             this.PanelLogin = new System.Windows.Forms.Panel();
+            this.btnShowPass3 = new System.Windows.Forms.Button();
             this.txtPassLogin = new System.Windows.Forms.TextBox();
             this.txtEmailLogin = new System.Windows.Forms.TextBox();
             this.LblPassword = new System.Windows.Forms.Label();
             this.LblEmail = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.LblNameUser = new System.Windows.Forms.Label();
-            this.progressBar2 = new ProgressBarCustomizada();
-            this.progressBar1 = new ProgressBarCustomizada();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -175,8 +179,7 @@ namespace MonitorFinanceiro
             this.txtpass.Location = new System.Drawing.Point(8, 131);
             this.txtpass.Margin = new System.Windows.Forms.Padding(4);
             this.txtpass.Name = "txtpass";
-            this.txtpass.PasswordChar = '•';
-            this.txtpass.Size = new System.Drawing.Size(202, 22);
+            this.txtpass.Size = new System.Drawing.Size(174, 22);
             this.txtpass.TabIndex = 6;
             this.txtpass.UseSystemPasswordChar = true;
             this.txtpass.TextChanged += new System.EventHandler(this.txtpass_TextChanged);
@@ -195,7 +198,9 @@ namespace MonitorFinanceiro
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnShowPass2);
             this.groupBox1.Controls.Add(this.lblWarning);
+            this.groupBox1.Controls.Add(this.btnShowPass);
             this.groupBox1.Controls.Add(this.lblPass2);
             this.groupBox1.Controls.Add(this.progressBar2);
             this.groupBox1.Controls.Add(this.CheckAdm);
@@ -223,6 +228,17 @@ namespace MonitorFinanceiro
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cadastro de usuário";
             // 
+            // btnShowPass2
+            // 
+            this.btnShowPass2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnShowPass2.Image = global::MonitorFinanceiro.Properties.Resources.olho2;
+            this.btnShowPass2.Location = new System.Drawing.Point(397, 131);
+            this.btnShowPass2.Name = "btnShowPass2";
+            this.btnShowPass2.Size = new System.Drawing.Size(22, 22);
+            this.btnShowPass2.TabIndex = 14;
+            this.btnShowPass2.UseVisualStyleBackColor = true;
+            this.btnShowPass2.Click += new System.EventHandler(this.btnShowPass2_Click);
+            // 
             // lblWarning
             // 
             this.lblWarning.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -233,6 +249,18 @@ namespace MonitorFinanceiro
             this.lblWarning.TabIndex = 14;
             this.lblWarning.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // btnShowPass
+            // 
+            this.btnShowPass.BackColor = System.Drawing.Color.Transparent;
+            this.btnShowPass.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnShowPass.Image = global::MonitorFinanceiro.Properties.Resources.olho2;
+            this.btnShowPass.Location = new System.Drawing.Point(188, 131);
+            this.btnShowPass.Name = "btnShowPass";
+            this.btnShowPass.Size = new System.Drawing.Size(22, 22);
+            this.btnShowPass.TabIndex = 13;
+            this.btnShowPass.UseVisualStyleBackColor = false;
+            this.btnShowPass.Click += new System.EventHandler(this.btnShowPass_Click);
+            // 
             // lblPass2
             // 
             this.lblPass2.BackColor = System.Drawing.Color.Transparent;
@@ -240,6 +268,14 @@ namespace MonitorFinanceiro
             this.lblPass2.Name = "lblPass2";
             this.lblPass2.Size = new System.Drawing.Size(202, 16);
             this.lblPass2.TabIndex = 15;
+            // 
+            // progressBar2
+            // 
+            this.progressBar2.Location = new System.Drawing.Point(217, 159);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(202, 10);
+            this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar2.TabIndex = 15;
             // 
             // CheckAdm
             // 
@@ -259,6 +295,14 @@ namespace MonitorFinanceiro
             this.lblPass1.Size = new System.Drawing.Size(202, 16);
             this.lblPass1.TabIndex = 14;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(8, 159);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(202, 10);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.TabIndex = 15;
+            // 
             // btn_limpar
             // 
             this.btn_limpar.Location = new System.Drawing.Point(96, 193);
@@ -271,10 +315,9 @@ namespace MonitorFinanceiro
             // 
             // txtConfPass
             // 
-            this.txtConfPass.Location = new System.Drawing.Point(217, 131);
+            this.txtConfPass.Location = new System.Drawing.Point(216, 131);
             this.txtConfPass.Name = "txtConfPass";
-            this.txtConfPass.PasswordChar = '•';
-            this.txtConfPass.Size = new System.Drawing.Size(202, 22);
+            this.txtConfPass.Size = new System.Drawing.Size(175, 22);
             this.txtConfPass.TabIndex = 13;
             this.txtConfPass.UseSystemPasswordChar = true;
             this.txtConfPass.TextChanged += new System.EventHandler(this.txtConfPass_TextChanged);
@@ -316,7 +359,7 @@ namespace MonitorFinanceiro
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(13, 9);
+            this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
@@ -326,6 +369,7 @@ namespace MonitorFinanceiro
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
@@ -755,23 +799,33 @@ namespace MonitorFinanceiro
             // PanelLogin
             // 
             this.PanelLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelLogin.Controls.Add(this.btnShowPass3);
             this.PanelLogin.Controls.Add(this.txtPassLogin);
             this.PanelLogin.Controls.Add(this.txtEmailLogin);
             this.PanelLogin.Controls.Add(this.LblPassword);
             this.PanelLogin.Controls.Add(this.LblEmail);
             this.PanelLogin.Controls.Add(this.btnLogin);
-            this.PanelLogin.Location = new System.Drawing.Point(12, 12);
+            this.PanelLogin.Location = new System.Drawing.Point(329, 224);
             this.PanelLogin.Name = "PanelLogin";
-            this.PanelLogin.Size = new System.Drawing.Size(384, 150);
+            this.PanelLogin.Size = new System.Drawing.Size(384, 140);
             this.PanelLogin.TabIndex = 13;
+            // 
+            // btnShowPass3
+            // 
+            this.btnShowPass3.Image = global::MonitorFinanceiro.Properties.Resources.olho2;
+            this.btnShowPass3.Location = new System.Drawing.Point(217, 85);
+            this.btnShowPass3.Name = "btnShowPass3";
+            this.btnShowPass3.Size = new System.Drawing.Size(28, 28);
+            this.btnShowPass3.TabIndex = 5;
+            this.btnShowPass3.UseVisualStyleBackColor = true;
+            this.btnShowPass3.Click += new System.EventHandler(this.btnShowPass3_Click);
             // 
             // txtPassLogin
             // 
             this.txtPassLogin.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassLogin.Location = new System.Drawing.Point(6, 87);
             this.txtPassLogin.Name = "txtPassLogin";
-            this.txtPassLogin.PasswordChar = '•';
-            this.txtPassLogin.Size = new System.Drawing.Size(239, 25);
+            this.txtPassLogin.Size = new System.Drawing.Size(205, 25);
             this.txtPassLogin.TabIndex = 4;
             this.txtPassLogin.UseSystemPasswordChar = true;
             // 
@@ -823,21 +877,14 @@ namespace MonitorFinanceiro
             this.LblNameUser.TabIndex = 14;
             this.LblNameUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // progressBar2
+            // label3
             // 
-            this.progressBar2.Location = new System.Drawing.Point(217, 159);
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(202, 10);
-            this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar2.TabIndex = 15;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(8, 159);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(202, 10);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 15;
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label3.Location = new System.Drawing.Point(546, 140);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(201, 21);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "label3";
             // 
             // FrmPrincipal
             // 
@@ -943,6 +990,10 @@ namespace MonitorFinanceiro
         private Label LblEmail;
         private Button btnLogin;
         private Label LblNameUser;
+        private Button btnShowPass;
+        private Button btnShowPass2;
+        private Button btnShowPass3;
+        private Label label3;
     }
 }
 

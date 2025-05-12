@@ -16,19 +16,92 @@ namespace MonitorFinanceiro
 {
     public partial class FrmPrincipal : Form
     {
+        private bool senhaVisivel = false;
+        int idUser;
+
         public FrmPrincipal()
         {
             InitializeComponent();
-        }
-
-       private void Form1_Load(object sender, EventArgs e)
-        {
             CarregLancamentos();
             ClearTextbox();
             Load_FrmPag();
             UpdateDgvUser();
 
             tabControl1.Visible = false;
+        }
+
+        private void AtualizarBotaoVisualizarSenha()
+        {
+            if (senhaVisivel)
+            {
+                // Se a senha estiver visível, mostra a imagem de olho fechado
+                btnShowPass.Image = Properties.Resources.olho1;
+                txtpass.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                // Se a senha estiver oculta, mostra a imagem de olho aberto
+                btnShowPass.Image = Properties.Resources.olho2;
+                txtpass.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void btnShowPass_Click(object sender, EventArgs e)
+        {
+            // Alterna a visibilidade da senha
+            senhaVisivel = !senhaVisivel;
+            AtualizarBotaoVisualizarSenha();
+        }
+
+        private void AtualizarBotaoVisualizarSenha2()
+        {
+            if (senhaVisivel)
+            {
+                // Se a senha estiver visível, mostra a imagem de olho fechado
+                btnShowPass2.Image = Properties.Resources.olho1;
+                txtConfPass.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                // Se a senha estiver oculta, mostra a imagem de olho aberto
+                btnShowPass2.Image = Properties.Resources.olho2;
+                txtConfPass.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void btnShowPass2_Click(object sender, EventArgs e)
+        {
+            // Alterna a visibilidade da senha
+            senhaVisivel = !senhaVisivel;
+            AtualizarBotaoVisualizarSenha2();
+        }
+
+        private void AtualizarBotaoVisualizarSenha3()
+        {
+            if (senhaVisivel)
+            {
+                // Se a senha estiver visível, mostra a imagem de olho fechado
+                btnShowPass3.Image = Properties.Resources.olho1;
+                txtPassLogin.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                // Se a senha estiver oculta, mostra a imagem de olho aberto
+                btnShowPass3.Image = Properties.Resources.olho2;
+                txtPassLogin.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void btnShowPass3_Click(object sender, EventArgs e)
+        {
+            // Alterna a visibilidade da senha
+            senhaVisivel = !senhaVisivel;
+            AtualizarBotaoVisualizarSenha3();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
         
         private void ClearTextbox()
@@ -216,8 +289,11 @@ namespace MonitorFinanceiro
 
         private void dgvUser_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            idUser = Convert.ToInt32(dgvUser.Rows[e.RowIndex].Cells[0].Value);
             txt_nome_usuario.Text = dgvUser.Rows[e.RowIndex].Cells[1].Value.ToString();
             txt_email.Text = dgvUser.Rows[e.RowIndex].Cells[2].Value.ToString();
+
+            label3.Text = idUser.ToString();
 
         }
 
@@ -266,6 +342,7 @@ namespace MonitorFinanceiro
             {
                 progressBar1.ForeColor = Color.Red;
                 lblPass1.Text = "";
+                lblWarning.Text = string.Empty;
             }
             else if (forca <= 40)
             {
@@ -310,6 +387,7 @@ namespace MonitorFinanceiro
             {
                 progressBar1.ForeColor = Color.Red;
                 lblPass2.Text = "";
+                lblWarning.Text = string.Empty;
             }
             else if (forca <= 40)
             {
@@ -661,7 +739,7 @@ namespace MonitorFinanceiro
                                     //new user_regist().Show();
                                     //this.Hide();
                                     tabControl1.Visible = true;
-                                    LblNameUser.Text = $"Olá seja bem vindo {nameUser}. ";
+                                    LblNameUser.Text = $"Olá seja bem vindo {nameUser}.";
                                 }
                                 else
                                 {

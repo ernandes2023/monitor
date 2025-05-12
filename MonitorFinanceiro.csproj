@@ -144,6 +144,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -161,9 +162,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <None Include="_img\webcam2.png" />
+    <None Include="_img\webcam.png" />
+    <None Include="_img\web_cam.png" />
+    <None Include="_img\salve.png" />
+    <None Include="_img\salvar.png" />
+    <None Include="_img\pasta.png" />
+    <None Include="_img\olho2.png" />
+    <None Include="_img\olho1.png" />
+    <None Include="_img\olho_2.png" />
+    <None Include="_img\olho_1.png" />
+    <None Include="_img\lupa.png" />
+    <None Include="_img\login-da-conta.png" />
+    <None Include="_img\icon_masc.jpg" />
+    <None Include="_img\icon_femin.jpg" />
+    <None Include="_img\find.png" />
+    <None Include="_img\camera.png" />
+    <None Include="_img\botao-atualizar.png" />
+    <None Include="_img\admin.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="_img\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
