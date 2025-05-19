@@ -11,6 +11,8 @@ using System.Transactions;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using MySql.Data.MySqlClient;
+using Mysqlx.Prepare;
+using Org.BouncyCastle.Utilities.Collections;
 
 namespace MonitorFinanceiro
 {
@@ -28,6 +30,7 @@ namespace MonitorFinanceiro
             UpdateDgvUser();
 
             tabControl1.Visible = false;
+            gbxDeletedUsers.Visible = false;
         }
 
         private void AtualizarBotaoVisualizarSenha()
@@ -226,6 +229,55 @@ namespace MonitorFinanceiro
                 finally
                 {
                     if (connection.State != ConnectionState.Closed) 
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
+        private void UpdateDgvUserDisabled()
+        {
+            // Sua consulta SQL
+            string query = "SELECT id_user, name_user, email  FROM users WHERE is_activated = 0;";
+            
+            // Criar um DataTable para armazenar os dados
+            DataTable tabela = new DataTable();
+
+            // Conectar ao banco
+            using (MySqlConnection connection = new MySqlConnection(Program.conexaoBD))
+            {
+                try
+                {
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    // Adaptador para preencher o DataTable com os resultados da query
+                    using (MySqlDataAdapter adaptador = new MySqlDataAdapter(query, connection))
+                    {
+                        adaptador.Fill(tabela); // Preenche a tabela com os dados do banco
+
+                        // Renomear as colunas conforme necessário
+                        tabela.Columns["id_user"].ColumnName = "ID";
+                        tabela.Columns["name_user"].ColumnName = "NOME";
+                        tabela.Columns["email"].ColumnName = "EMAIL";
+                    }
+
+                    // Atribuir os dados ao DataGridView
+                    DgvUserDisabled.DataSource = tabela;
+
+                    // Formata as colunas do DataGridView para o tanho auto ajustavel
+                    DgvUserDisabled.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Erro, não foi possível estabeler conexão com o banco de dados: " + ex.Message);
+                }
+                finally
+                {
+                    if (connection.State != ConnectionState.Closed)
                     {
                         connection.Close();
                     }
@@ -505,64 +557,57 @@ namespace MonitorFinanceiro
 
         private void btn_delete_Click(object sender, EventArgs e)
         {
-            string errorMessage = string.Empty;
+            DialogResult result = MessageBox.Show("Deseja Realmente Excluir Este Usuário?",
+                "Excluir Usuário.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if (string.IsNullOrWhiteSpace(txt_nome_usuario.Text))
+            if (result == DialogResult.No)
             {
-                errorMessage += "Nome: \n";
-                txt_nome_usuario.BackColor = ColorTranslator.FromHtml("#FEC6C6");
-            }
-            if (string.IsNullOrWhiteSpace(txt_email.Text))
-            {
-                errorMessage += "Email: \n";
-                txt_email.BackColor = ColorTranslator.FromHtml("#FEC6C6");
-            }
-
-            if (string.IsNullOrWhiteSpace(txtpass.Text))
-            {
-                errorMessage += "Senha: \n";
-                txtpass.BackColor = ColorTranslator.FromHtml("#FEC6C6");
-            }
-
-            if (string.IsNullOrWhiteSpace(txtConfPass.Text))
-            {
-                errorMessage += "Conf. Senha: \n";
-                txtConfPass.BackColor = ColorTranslator.FromHtml("#FEC6C6");
-            }
-
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                MessageBox.Show($"Os seguintes campos são obrigatórios:\n\n{errorMessage}",
-                    "Campos Obrigatórios", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             else
             {
                 MySqlConnection conn = new MySqlConnection(Program.conexaoBD);
 
-                if(conn.State != ConnectionState.Open)
+                if (conn.State != ConnectionState.Open)
                 {
                     conn.Open();
                 }
 
                 try
                 {
-                    MySqlCommand insertDB = new MySqlCommand("UPDATE users SET name_user@NameUser, email@Email, password@Password, updated_by@UpDated_by WHERE id_user@IdUser", conn);
+                    string valueActive = "0";
+
+                    MySqlCommand insertDB = new MySqlCommand
+                        ("UPDATE users SET is_activated=@IsActivated WHERE id_user=@IdUser", conn);
+
+                    insertDB.Parameters.Add("@IsActivated", MySqlDbType.Int32).Value = valueActive;
+                    insertDB.Parameters.Add("@IdUser", MySqlDbType.Int32).Value = Convert.ToInt32(idUser);
+
+                    // Executa o comando de inserção
+                    insertDB.ExecuteNonQuery();
+
+                    // Exibe uma mensagem de sucesso
+                    MessageBox.Show("Dados excluidos com sucesso!",
+                        "Sucesso", MessageBoxButtons.OK);
+
+                    UpdateDgvUser();
+                    ClearTextbox();
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     MessageBox.Show("Erro ao editar as informações: " + ex.Message,
                         "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
-                    if(conn.State != ConnectionState.Closed)
+                    if (conn.State != ConnectionState.Closed)
                     {
                         conn.Close();
                     }
                 }
             }
         }
-
+        
         private void btn_save_Click(object sender, EventArgs e)
         {
             string errorMessage = "";
@@ -894,6 +939,22 @@ namespace MonitorFinanceiro
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RestoreUser_Click(object sender, EventArgs e)
+        {
+            UpdateDgvUserDisabled();
+            gbxDeletedUsers.Visible = true;
+        }
+
+        private void DgvUserDisabled_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void DgvUserDisabled_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
