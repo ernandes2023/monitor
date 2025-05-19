@@ -45,10 +45,8 @@ namespace MonitorFinanceiro
             this.lblWarning = new System.Windows.Forms.Label();
             this.btnShowPass = new System.Windows.Forms.Button();
             this.lblPass2 = new System.Windows.Forms.Label();
-            this.progressBar2 = new ProgressBarCustomizada();
             this.CheckAdm = new System.Windows.Forms.CheckBox();
             this.lblPass1 = new System.Windows.Forms.Label();
-            this.progressBar1 = new ProgressBarCustomizada();
             this.btn_limpar = new System.Windows.Forms.Button();
             this.txtConfPass = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -102,7 +100,8 @@ namespace MonitorFinanceiro
             this.LblEmail = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.LblNameUser = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.progressBar2 = new ProgressBarCustomizada();
+            this.progressBar1 = new ProgressBarCustomizada();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -269,14 +268,6 @@ namespace MonitorFinanceiro
             this.lblPass2.Size = new System.Drawing.Size(202, 16);
             this.lblPass2.TabIndex = 15;
             // 
-            // progressBar2
-            // 
-            this.progressBar2.Location = new System.Drawing.Point(217, 159);
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(202, 10);
-            this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar2.TabIndex = 15;
-            // 
             // CheckAdm
             // 
             this.CheckAdm.AutoSize = true;
@@ -294,14 +285,6 @@ namespace MonitorFinanceiro
             this.lblPass1.Name = "lblPass1";
             this.lblPass1.Size = new System.Drawing.Size(202, 16);
             this.lblPass1.TabIndex = 14;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(8, 159);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(202, 10);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 15;
             // 
             // btn_limpar
             // 
@@ -369,7 +352,6 @@ namespace MonitorFinanceiro
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
@@ -877,14 +859,21 @@ namespace MonitorFinanceiro
             this.LblNameUser.TabIndex = 14;
             this.LblNameUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label3
+            // progressBar2
             // 
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Location = new System.Drawing.Point(546, 140);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(201, 21);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "label3";
+            this.progressBar2.Location = new System.Drawing.Point(217, 159);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(202, 10);
+            this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar2.TabIndex = 15;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(8, 159);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(202, 10);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.TabIndex = 15;
             // 
             // FrmPrincipal
             // 
@@ -993,7 +982,6 @@ namespace MonitorFinanceiro
         private Button btnShowPass;
         private Button btnShowPass2;
         private Button btnShowPass3;
-        private Label label3;
     }
 }
 

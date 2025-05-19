@@ -292,9 +292,6 @@ namespace MonitorFinanceiro
             idUser = Convert.ToInt32(dgvUser.Rows[e.RowIndex].Cells[0].Value);
             txt_nome_usuario.Text = dgvUser.Rows[e.RowIndex].Cells[1].Value.ToString();
             txt_email.Text = dgvUser.Rows[e.RowIndex].Cells[2].Value.ToString();
-
-            label3.Text = idUser.ToString();
-
         }
 
         private void txt_nome_usuario_TextChanged(object sender, EventArgs e)
@@ -324,7 +321,6 @@ namespace MonitorFinanceiro
 
             return pontuacao;
         }
-
 
         private void txtpass_TextChanged(object sender, EventArgs e)
         {
@@ -423,14 +419,148 @@ namespace MonitorFinanceiro
             }
         }
 
+        private bool ValidarCamposObrigatorios(Dictionary<Control, string> campos, out string mensagemErro)
+        {
+            mensagemErro = "";
+            foreach (var item in campos)
+            {
+                var campo = item.Key;
+                var nomeCampo = item.Value;
+
+                // Resetar cor do campo
+                campo.BackColor = SystemColors.Window;
+
+                // Verificar se está vazio
+                if (string.IsNullOrWhiteSpace(campo.Text))
+                {
+                    mensagemErro += $"• {nomeCampo}\n";
+                    campo.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+                }
+            }
+
+            return string.IsNullOrEmpty(mensagemErro);
+        }
+
         private void btn_edit_Click(object sender, EventArgs e)
         {
+            var campos = new Dictionary<Control, string>
+            {
+                { txt_nome_usuario, "Nome" },
+                { txt_email, "Email" },
+                { txtpass, "Senha" },
+                { txtConfPass, "Confirmar Senha" }
+            };
 
+            if (!ValidarCamposObrigatorios(campos, out string erros))
+            {
+                MessageBox.Show("Os seguintes campos são obrigatórios:\n\n" + erros,
+                    "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                MySqlConnection conn = new MySqlConnection(Program.conexaoBD);
+
+                if(conn.State  != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+
+                try
+                {
+                    MySqlCommand insertDB = new MySqlCommand
+                        ("UPDATE users SET name_user=@name_user, email=@email, password=@password, is_admin=@is_admin, updated_by=@Updated_by WHERE id_user=@IdUser", conn);
+
+                    insertDB.Parameters.Add("@name_user", MySqlDbType.VarChar).Value = txt_nome_usuario.Text;
+                    insertDB.Parameters.Add("@email", MySqlDbType.VarChar).Value = txt_email.Text;
+                    insertDB.Parameters.Add("@password", MySqlDbType.VarChar).Value = BCrypt.Net.BCrypt.HashPassword(txtpass.Text);
+                    insertDB.Parameters.Add("@is_admin", MySqlDbType.VarChar).Value = CheckAdm.Checked ? 1 : 0;
+                    insertDB.Parameters.Add("@Updated_by", MySqlDbType.Int32).Value = UserId;
+                    insertDB.Parameters.Add("@IdUser", MySqlDbType.Int32).Value = Convert.ToInt32(idUser);
+
+                    // Executa o comando de inserção
+                    insertDB.ExecuteNonQuery();
+
+                    // Exibe uma mensagem de sucesso
+                    MessageBox.Show("Dados cadastrado com sucesso!",
+                        "Sucesso", MessageBoxButtons.OK);
+
+                    UpdateDgvUser();
+                    ClearTextbox();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao editar as informações: " + ex.Message,
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    if (conn.State != ConnectionState.Closed)
+                    {
+                        conn.Close();
+                    }
+                }
+            }
         }
 
         private void btn_delete_Click(object sender, EventArgs e)
         {
+            string errorMessage = string.Empty;
 
+            if (string.IsNullOrWhiteSpace(txt_nome_usuario.Text))
+            {
+                errorMessage += "Nome: \n";
+                txt_nome_usuario.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+            }
+            if (string.IsNullOrWhiteSpace(txt_email.Text))
+            {
+                errorMessage += "Email: \n";
+                txt_email.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+            }
+
+            if (string.IsNullOrWhiteSpace(txtpass.Text))
+            {
+                errorMessage += "Senha: \n";
+                txtpass.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+            }
+
+            if (string.IsNullOrWhiteSpace(txtConfPass.Text))
+            {
+                errorMessage += "Conf. Senha: \n";
+                txtConfPass.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+            }
+
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                MessageBox.Show($"Os seguintes campos são obrigatórios:\n\n{errorMessage}",
+                    "Campos Obrigatórios", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MySqlConnection conn = new MySqlConnection(Program.conexaoBD);
+
+                if(conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+
+                try
+                {
+                    MySqlCommand insertDB = new MySqlCommand("UPDATE users SET name_user@NameUser, email@Email, password@Password, updated_by@UpDated_by WHERE id_user@IdUser", conn);
+                }
+                catch (Exception ex) 
+                {
+                    MessageBox.Show("Erro ao editar as informações: " + ex.Message,
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    if(conn.State != ConnectionState.Closed)
+                    {
+                        conn.Close();
+                    }
+                }
+            }
         }
 
         private void btn_save_Click(object sender, EventArgs e)
@@ -509,7 +639,7 @@ namespace MonitorFinanceiro
                     }
 
                     // int UserId = UserSession.User_id; // Varialvel irá armazenar o id do usuario logado no sistema.
-                    //UserId = 5;
+                    
 
                     // Cria um novo comando MySqlCommand para inserir os dados na tabela usuario
                     MySqlCommand insertDB = new MySqlCommand
@@ -761,6 +891,11 @@ namespace MonitorFinanceiro
                 MessageBox.Show("Erro ao conectar com o banco de dados: " + ex.Message,
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
