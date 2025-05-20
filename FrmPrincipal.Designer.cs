@@ -45,8 +45,10 @@ namespace MonitorFinanceiro
             this.lblWarning = new System.Windows.Forms.Label();
             this.btnShowPass = new System.Windows.Forms.Button();
             this.lblPass2 = new System.Windows.Forms.Label();
+            this.progressBar2 = new ProgressBarCustomizada();
             this.CheckAdm = new System.Windows.Forms.CheckBox();
             this.lblPass1 = new System.Windows.Forms.Label();
+            this.progressBar1 = new ProgressBarCustomizada();
             this.btn_limpar = new System.Windows.Forms.Button();
             this.txtConfPass = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -54,15 +56,17 @@ namespace MonitorFinanceiro
             this.btn_edit = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.RestoreUser = new System.Windows.Forms.Button();
+            this.gbxDeletedUsers = new System.Windows.Forms.GroupBox();
+            this.DgvUserDisabled = new System.Windows.Forms.DataGridView();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dgvUser = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.BtnLimpar = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.DgvLancamentos = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.BtnLimpar = new System.Windows.Forms.Button();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.BtnApagar = new System.Windows.Forms.Button();
-            this.BtnEditar = new System.Windows.Forms.Button();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.label18 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
@@ -74,9 +78,11 @@ namespace MonitorFinanceiro
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.BtnCadastrar = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txt_categoria = new System.Windows.Forms.TextBox();
+            this.BtnApagar = new System.Windows.Forms.Button();
+            this.BtnEditar = new System.Windows.Forms.Button();
+            this.BtnCadastrar = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -100,27 +106,21 @@ namespace MonitorFinanceiro
             this.LblEmail = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.LblNameUser = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.RestoreUser = new System.Windows.Forms.Button();
-            this.gbxDeletedUsers = new System.Windows.Forms.GroupBox();
-            this.DgvUserDisabled = new System.Windows.Forms.DataGridView();
-            this.progressBar2 = new ProgressBarCustomizada();
-            this.progressBar1 = new ProgressBarCustomizada();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.gbxDeletedUsers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvUserDisabled)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLancamentos)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.PanelLogin.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.gbxDeletedUsers.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DgvUserDisabled)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_nome_usuario
@@ -275,6 +275,14 @@ namespace MonitorFinanceiro
             this.lblPass2.Size = new System.Drawing.Size(202, 16);
             this.lblPass2.TabIndex = 15;
             // 
+            // progressBar2
+            // 
+            this.progressBar2.Location = new System.Drawing.Point(217, 159);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(202, 10);
+            this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar2.TabIndex = 15;
+            // 
             // CheckAdm
             // 
             this.CheckAdm.AutoSize = true;
@@ -292,6 +300,14 @@ namespace MonitorFinanceiro
             this.lblPass1.Name = "lblPass1";
             this.lblPass1.Size = new System.Drawing.Size(202, 16);
             this.lblPass1.TabIndex = 14;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(8, 159);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(202, 10);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.TabIndex = 15;
             // 
             // btn_limpar
             // 
@@ -372,6 +388,36 @@ namespace MonitorFinanceiro
             this.tabPage1.Text = "Usuário";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // RestoreUser
+            // 
+            this.RestoreUser.Location = new System.Drawing.Point(442, 19);
+            this.RestoreUser.Name = "RestoreUser";
+            this.RestoreUser.Size = new System.Drawing.Size(141, 33);
+            this.RestoreUser.TabIndex = 13;
+            this.RestoreUser.Text = "Resgatar Usuario";
+            this.RestoreUser.UseVisualStyleBackColor = true;
+            this.RestoreUser.Click += new System.EventHandler(this.RestoreUser_Click);
+            // 
+            // gbxDeletedUsers
+            // 
+            this.gbxDeletedUsers.Controls.Add(this.DgvUserDisabled);
+            this.gbxDeletedUsers.Location = new System.Drawing.Point(442, 58);
+            this.gbxDeletedUsers.Name = "gbxDeletedUsers";
+            this.gbxDeletedUsers.Size = new System.Drawing.Size(530, 231);
+            this.gbxDeletedUsers.TabIndex = 14;
+            this.gbxDeletedUsers.TabStop = false;
+            this.gbxDeletedUsers.Text = "Usuários Apagados:";
+            // 
+            // DgvUserDisabled
+            // 
+            this.DgvUserDisabled.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvUserDisabled.Location = new System.Drawing.Point(6, 21);
+            this.DgvUserDisabled.Name = "DgvUserDisabled";
+            this.DgvUserDisabled.Size = new System.Drawing.Size(516, 200);
+            this.DgvUserDisabled.TabIndex = 0;
+            this.DgvUserDisabled.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvUserDisabled_CellContentClick);
+            this.DgvUserDisabled.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvUserDisabled_CellContentDoubleClick);
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.dgvUser);
@@ -411,6 +457,27 @@ namespace MonitorFinanceiro
             this.tabPage2.Text = "Lançamentos";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // BtnLimpar
+            // 
+            this.BtnLimpar.Location = new System.Drawing.Point(54, 525);
+            this.BtnLimpar.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnLimpar.Name = "BtnLimpar";
+            this.BtnLimpar.Size = new System.Drawing.Size(79, 28);
+            this.BtnLimpar.TabIndex = 21;
+            this.BtnLimpar.Text = "Limpar";
+            this.BtnLimpar.UseVisualStyleBackColor = true;
+            this.BtnLimpar.Click += new System.EventHandler(this.BtnLimpar_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.DgvLancamentos);
+            this.groupBox3.Location = new System.Drawing.Point(393, 7);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(580, 546);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "groupBox3";
+            // 
             // DgvLancamentos
             // 
             this.DgvLancamentos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -446,17 +513,6 @@ namespace MonitorFinanceiro
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Entradas e Saídas";
             // 
-            // BtnLimpar
-            // 
-            this.BtnLimpar.Location = new System.Drawing.Point(54, 525);
-            this.BtnLimpar.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnLimpar.Name = "BtnLimpar";
-            this.BtnLimpar.Size = new System.Drawing.Size(79, 28);
-            this.BtnLimpar.TabIndex = 21;
-            this.BtnLimpar.Text = "Limpar";
-            this.BtnLimpar.UseVisualStyleBackColor = true;
-            this.BtnLimpar.Click += new System.EventHandler(this.BtnLimpar_Click);
-            // 
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
@@ -467,28 +523,6 @@ namespace MonitorFinanceiro
             this.checkBox5.TabIndex = 20;
             this.checkBox5.Text = "Ativo";
             this.checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // BtnApagar
-            // 
-            this.BtnApagar.Location = new System.Drawing.Point(311, 525);
-            this.BtnApagar.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnApagar.Name = "BtnApagar";
-            this.BtnApagar.Size = new System.Drawing.Size(75, 28);
-            this.BtnApagar.TabIndex = 10;
-            this.BtnApagar.Text = "Apagar";
-            this.BtnApagar.UseVisualStyleBackColor = true;
-            this.BtnApagar.Click += new System.EventHandler(this.BtnApagar_Click);
-            // 
-            // BtnEditar
-            // 
-            this.BtnEditar.Location = new System.Drawing.Point(229, 525);
-            this.BtnEditar.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnEditar.Name = "BtnEditar";
-            this.BtnEditar.Size = new System.Drawing.Size(75, 28);
-            this.BtnEditar.TabIndex = 9;
-            this.BtnEditar.Text = "Editar";
-            this.BtnEditar.UseVisualStyleBackColor = true;
-            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // checkBox4
             // 
@@ -599,17 +633,6 @@ namespace MonitorFinanceiro
             this.checkBox1.Text = "Entrada";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // BtnCadastrar
-            // 
-            this.BtnCadastrar.Location = new System.Drawing.Point(141, 525);
-            this.BtnCadastrar.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnCadastrar.Name = "BtnCadastrar";
-            this.BtnCadastrar.Size = new System.Drawing.Size(79, 28);
-            this.BtnCadastrar.TabIndex = 8;
-            this.BtnCadastrar.Text = "Cadastrar";
-            this.BtnCadastrar.UseVisualStyleBackColor = true;
-            this.BtnCadastrar.Click += new System.EventHandler(this.BtnCadastrar_Click);
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -628,6 +651,39 @@ namespace MonitorFinanceiro
             this.txt_categoria.Size = new System.Drawing.Size(162, 22);
             this.txt_categoria.TabIndex = 0;
             this.txt_categoria.TextChanged += new System.EventHandler(this.txt_categoria_TextChanged);
+            // 
+            // BtnApagar
+            // 
+            this.BtnApagar.Location = new System.Drawing.Point(311, 525);
+            this.BtnApagar.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnApagar.Name = "BtnApagar";
+            this.BtnApagar.Size = new System.Drawing.Size(75, 28);
+            this.BtnApagar.TabIndex = 10;
+            this.BtnApagar.Text = "Apagar";
+            this.BtnApagar.UseVisualStyleBackColor = true;
+            this.BtnApagar.Click += new System.EventHandler(this.BtnApagar_Click);
+            // 
+            // BtnEditar
+            // 
+            this.BtnEditar.Location = new System.Drawing.Point(229, 525);
+            this.BtnEditar.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnEditar.Name = "BtnEditar";
+            this.BtnEditar.Size = new System.Drawing.Size(75, 28);
+            this.BtnEditar.TabIndex = 9;
+            this.BtnEditar.Text = "Editar";
+            this.BtnEditar.UseVisualStyleBackColor = true;
+            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
+            // 
+            // BtnCadastrar
+            // 
+            this.BtnCadastrar.Location = new System.Drawing.Point(141, 525);
+            this.BtnCadastrar.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnCadastrar.Name = "BtnCadastrar";
+            this.BtnCadastrar.Size = new System.Drawing.Size(79, 28);
+            this.BtnCadastrar.TabIndex = 8;
+            this.BtnCadastrar.Text = "Cadastrar";
+            this.BtnCadastrar.UseVisualStyleBackColor = true;
+            this.BtnCadastrar.Click += new System.EventHandler(this.BtnCadastrar_Click);
             // 
             // tabPage4
             // 
@@ -868,62 +924,6 @@ namespace MonitorFinanceiro
             this.LblNameUser.TabIndex = 14;
             this.LblNameUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.DgvLancamentos);
-            this.groupBox3.Location = new System.Drawing.Point(393, 7);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(580, 546);
-            this.groupBox3.TabIndex = 9;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
-            // 
-            // RestoreUser
-            // 
-            this.RestoreUser.Location = new System.Drawing.Point(442, 19);
-            this.RestoreUser.Name = "RestoreUser";
-            this.RestoreUser.Size = new System.Drawing.Size(141, 33);
-            this.RestoreUser.TabIndex = 13;
-            this.RestoreUser.Text = "Resgatar Usuario";
-            this.RestoreUser.UseVisualStyleBackColor = true;
-            this.RestoreUser.Click += new System.EventHandler(this.RestoreUser_Click);
-            // 
-            // gbxDeletedUsers
-            // 
-            this.gbxDeletedUsers.Controls.Add(this.DgvUserDisabled);
-            this.gbxDeletedUsers.Location = new System.Drawing.Point(442, 58);
-            this.gbxDeletedUsers.Name = "gbxDeletedUsers";
-            this.gbxDeletedUsers.Size = new System.Drawing.Size(530, 231);
-            this.gbxDeletedUsers.TabIndex = 14;
-            this.gbxDeletedUsers.TabStop = false;
-            this.gbxDeletedUsers.Text = "Usuários Apagados:";
-            // 
-            // DgvUserDisabled
-            // 
-            this.DgvUserDisabled.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvUserDisabled.Location = new System.Drawing.Point(6, 21);
-            this.DgvUserDisabled.Name = "DgvUserDisabled";
-            this.DgvUserDisabled.Size = new System.Drawing.Size(516, 204);
-            this.DgvUserDisabled.TabIndex = 0;
-            this.DgvUserDisabled.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvUserDisabled_CellContentClick);
-            this.DgvUserDisabled.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvUserDisabled_CellContentDoubleClick);
-            // 
-            // progressBar2
-            // 
-            this.progressBar2.Location = new System.Drawing.Point(217, 159);
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(202, 10);
-            this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar2.TabIndex = 15;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(8, 159);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(202, 10);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 15;
-            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -943,9 +943,12 @@ namespace MonitorFinanceiro
             this.groupBox1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.gbxDeletedUsers.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DgvUserDisabled)).EndInit();
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DgvLancamentos)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -955,9 +958,6 @@ namespace MonitorFinanceiro
             this.groupBox4.PerformLayout();
             this.PanelLogin.ResumeLayout(false);
             this.PanelLogin.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.gbxDeletedUsers.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.DgvUserDisabled)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -106,7 +106,7 @@ namespace MonitorFinanceiro
         {
 
         }
-        
+
         private void ClearTextbox()
         {
             txt_nome_usuario.Text = string.Empty;
@@ -160,7 +160,7 @@ namespace MonitorFinanceiro
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro, não foi possível estabeler conexão com o banco de dados: " + ex.Message);
-                    
+
                 }
                 finally
                 {
@@ -200,7 +200,7 @@ namespace MonitorFinanceiro
             {
                 try
                 {
-                    if(connection.State != ConnectionState.Open)
+                    if (connection.State != ConnectionState.Open)
                     {
                         connection.Open();
                     }
@@ -228,7 +228,7 @@ namespace MonitorFinanceiro
                 }
                 finally
                 {
-                    if (connection.State != ConnectionState.Closed) 
+                    if (connection.State != ConnectionState.Closed)
                     {
                         connection.Close();
                     }
@@ -240,7 +240,7 @@ namespace MonitorFinanceiro
         {
             // Sua consulta SQL
             string query = "SELECT id_user, name_user, email  FROM users WHERE is_activated = 0;";
-            
+
             // Criar um DataTable para armazenar os dados
             DataTable tabela = new DataTable();
 
@@ -422,7 +422,7 @@ namespace MonitorFinanceiro
 
         private void txtConfPass_TextChanged(object sender, EventArgs e)
         {
-            txtConfPass.BackColor= ColorTranslator.FromHtml(default);
+            txtConfPass.BackColor = ColorTranslator.FromHtml(default);
 
             string senha = txtConfPass.Text;
             int forca = CalcularForcaSenha(senha);
@@ -513,7 +513,7 @@ namespace MonitorFinanceiro
             {
                 MySqlConnection conn = new MySqlConnection(Program.conexaoBD);
 
-                if(conn.State  != ConnectionState.Open)
+                if (conn.State != ConnectionState.Open)
                 {
                     conn.Open();
                 }
@@ -607,7 +607,7 @@ namespace MonitorFinanceiro
                 }
             }
         }
-        
+
         private void btn_save_Click(object sender, EventArgs e)
         {
             string errorMessage = "";
@@ -617,20 +617,20 @@ namespace MonitorFinanceiro
                 errorMessage += "Nome: \n";
                 txt_nome_usuario.BackColor = ColorTranslator.FromHtml("#FEC6C6");
             }
-            
+
             if (string.IsNullOrWhiteSpace(txt_email.Text))
             {
                 errorMessage += "Email: \n";
                 txt_email.BackColor = ColorTranslator.FromHtml("#FEC6C6");
             }
 
-            if(string.IsNullOrWhiteSpace (txtpass.Text))
+            if (string.IsNullOrWhiteSpace(txtpass.Text))
             {
                 errorMessage += "Senha: \n";
                 txtpass.BackColor = ColorTranslator.FromHtml("#FEC6C6");
             }
 
-            if (string.IsNullOrWhiteSpace(txtConfPass.Text)) 
+            if (string.IsNullOrWhiteSpace(txtConfPass.Text))
             {
                 errorMessage += "Conf. Senha: \n";
                 txtConfPass.BackColor = ColorTranslator.FromHtml("#FEC6C6");
@@ -651,7 +651,7 @@ namespace MonitorFinanceiro
                 {
                     conn.Open();
                 }
-                
+
                 try
                 {
                     // Define as queries SQL para verificar o email.
@@ -684,7 +684,7 @@ namespace MonitorFinanceiro
                     }
 
                     // int UserId = UserSession.User_id; // Varialvel irá armazenar o id do usuario logado no sistema.
-                    
+
 
                     // Cria um novo comando MySqlCommand para inserir os dados na tabela usuario
                     MySqlCommand insertDB = new MySqlCommand
@@ -775,7 +775,7 @@ namespace MonitorFinanceiro
                 MessageBox.Show("Todos os campos precisam ser preenchidos!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txt_categoria.Select(); // Coloca o foco no campo de nome caso esteja vazio
             }
-           
+
             else
             {
                 // Cria uma nova conexão MySqlConnection utilizando a string de conexão definida em Program.conexaoBD
@@ -851,7 +851,7 @@ namespace MonitorFinanceiro
                     conectar.Close();
                 }
 
-                
+
             }
         }
 
@@ -902,12 +902,12 @@ namespace MonitorFinanceiro
                                 UserId = reader.GetInt32("id_user");
                                 string nameUser = reader.GetString("name_user");
                                 string hashSalvo = reader.GetString("password");
-                                
+
                                 bool senhaCorreta = BCrypt.Net.BCrypt.Verify(senhaDigitada, hashSalvo);
 
                                 if (senhaCorreta)
                                 {
-                                    MessageBox.Show("Login Bem-sucedido! \n Seja bem vindo " + UserId + " - "+ nameUser +".", "Sucesso",
+                                    MessageBox.Show("Login Bem-sucedido! \n Seja bem vindo " + UserId + " - " + nameUser + ".", "Sucesso",
                                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                     // Exemplo: abrir tela principal
@@ -956,7 +956,60 @@ namespace MonitorFinanceiro
 
         private void DgvUserDisabled_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            int     txtIdUser = Convert.ToInt32(DgvUserDisabled.Rows[e.RowIndex].Cells[0].Value);
+            string  txtNameUser = DgvUserDisabled.Rows[e.RowIndex].Cells[1].Value.ToString();
+            string  txtEmail = DgvUserDisabled.Rows[e.RowIndex].Cells[2].Value.ToString();
 
+            DialogResult result = MessageBox.Show($"Deseja realmente regatar este usuário?" +
+                $"\nId: {txtIdUser} \nNome: {txtNameUser} \nEmail:{txtEmail}",
+                "Restaurar Usuário.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+            else
+            {
+                MySqlConnection conn = new MySqlConnection(Program.conexaoBD);
+
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+
+                try
+                {
+                    string valueActive = "1";
+
+                    MySqlCommand insertDB = new MySqlCommand
+                        ("UPDATE users SET is_activated=@IsActivated WHERE id_user=@IdUser", conn);
+
+                    insertDB.Parameters.Add("@IsActivated", MySqlDbType.Int32).Value = valueActive;
+                    insertDB.Parameters.Add("@IdUser", MySqlDbType.Int32).Value = Convert.ToInt32(txtIdUser);
+
+                    // Executa o comando de inserção
+                    insertDB.ExecuteNonQuery();
+
+                    // Exibe uma mensagem de sucesso
+                    MessageBox.Show("Usuário resgatado com sucesso!",
+                        "Sucesso", MessageBoxButtons.OK);
+
+                    UpdateDgvUser();
+                    ClearTextbox();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao editar as informações: " + ex.Message,
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    if (conn.State != ConnectionState.Closed)
+                    {
+                        conn.Close();
+                    }
+                }
+            }
         }
     }
 }
