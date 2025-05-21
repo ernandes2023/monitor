@@ -24,13 +24,50 @@ namespace MonitorFinanceiro
         public FrmPrincipal()
         {
             InitializeComponent();
-            CarregLancamentos();
+            CarregarLancamentos();
             ClearTextbox();
             Load_FrmPag();
             UpdateDgvUser();
+            LimparCampos();
 
             tabControl1.Visible = false;
             gbxDeletedUsers.Visible = false;
+        }
+        private void LimparCampos()
+        {
+            txt_categoria.Text = "";
+            textBox6.Text = "";
+            textBox7.Text = "";
+            textBox8.Text = "";
+            textBox9.Text = "";
+
+            checkBox1.Checked = false;
+            checkBox2.Checked = false;
+            checkBox4.Checked = false;
+            checkBox5.Checked = false;
+
+            label_id.Text = "";
+            txt_categoria.Focus();
+        }
+
+        private void DgvLancamentos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = DgvLancamentos.Rows[e.RowIndex];
+
+                label_id.Text = row.Cells["id"].Value.ToString(); // Oculto, mas essencial
+
+                txt_categoria.Text = row.Cells["Lançamento:"].Value.ToString();
+                textBox6.Text = row.Cells["Categoria:"].Value.ToString();
+                string tipo = row.Cells["Entrada ou Saída"].Value.ToString();
+                checkBox1.Checked = tipo == "Receita";
+                checkBox2.Checked = tipo == "Despesa";
+                textBox7.Text = row.Cells["Fornecedor"].Value.ToString();
+                checkBox4.Checked = Convert.ToBoolean(row.Cells["Recorrente:"].Value);
+                textBox9.Text = row.Cells["Data Vencimento:"].Value.ToString();
+                textBox8.Text = row.Cells["Observações:"].Value.ToString();
+            }
         }
 
         private void AtualizarBotaoVisualizarSenha()
@@ -124,53 +161,7 @@ namespace MonitorFinanceiro
 
         }
 
-        private void CarregLancamentos()
-        {
-            string query = "SELECT nome, categoria, tipo, fornecedor, recorrente, dia_vencimento, observacoes FROM lancamentos;";
-
-            DataTable tabela = new DataTable(); // Cria o DataTable apenas uma vez
-
-            using (MySqlConnection connection = new MySqlConnection(Program.conexaoBD))
-            {
-                try
-                {
-                    if (connection.State != ConnectionState.Open)
-                    {
-                        connection.Open();
-                    }
-
-                    using (MySqlDataAdapter adaptador = new MySqlDataAdapter(query, connection))
-                    {
-                        adaptador.Fill(tabela); // Preenche o DataTable com os dados do banco
-
-                        // Renomear as colunas conforme necessário
-                        //tabela.Columns["id_lancamentos"].ColumnName = "Id:";
-                        tabela.Columns["nome"].ColumnName = "Lançamento:";
-                        tabela.Columns["categoria"].ColumnName = "Categoria:";
-                        tabela.Columns["tipo"].ColumnName = "Entrada ou Saída";
-                        tabela.Columns["fornecedor"].ColumnName = "Fornecedor";
-                        tabela.Columns["recorrente"].ColumnName = "Recorrente:";
-                        tabela.Columns["dia_vencimento"].ColumnName = "Data Vencimento:";
-                        tabela.Columns["observacoes"].ColumnName = "Observações:";
-                        //tabela.Columns["ativo"].ColumnName = "Ativo:";
-                    }
-
-                    DgvLancamentos.DataSource = tabela; // Atribui ao DataGridView depois de renomear
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro, não foi possível estabeler conexão com o banco de dados: " + ex.Message);
-
-                }
-                finally
-                {
-                    if (connection.State != ConnectionState.Closed)
-                    {
-                        connection.Close();
-                    }
-                }
-            }
-        }
+   
 
         private void Load_FrmPag()
         {
@@ -764,7 +755,7 @@ namespace MonitorFinanceiro
 
         private void BtnLimpar_Click(object sender, EventArgs e)
         {
-
+            LimparCampos();
         }
 
         private void BtnCadastrar_Click(object sender, EventArgs e)
@@ -841,6 +832,7 @@ namespace MonitorFinanceiro
                     // (Opcional) Coloca o cursor no primeiro campo
                     txt_categoria.Focus();
 
+                    CarregarLancamentos();// atualiza as informações para a dgv
                 }
                 catch (Exception ex)
                 {
@@ -851,13 +843,140 @@ namespace MonitorFinanceiro
                     conectar.Close();
                 }
 
-
+                
             }
         }
 
-        private void BtnEditar_Click(object sender, EventArgs e)
-        {
+        
+            private void BtnEditar_Click(object sender, EventArgs e)
+            {
+                // Verifica se o ID está preenchido (ou seja, se foi selecionado um item)
+                if (string.IsNullOrWhiteSpace(label_id.Text))
+                {
+                    MessageBox.Show("Selecione um item para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
+                // Verifica se todos os campos obrigatórios estão preenchidos
+                if (txt_categoria.Text == "" || textBox6.Text == "" || textBox7.Text == "" || textBox9.Text == "")
+                {
+                    MessageBox.Show("Todos os campos precisam ser preenchidos!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txt_categoria.Select();
+                    return;
+                }
+
+                MySqlConnection conectar = new MySqlConnection(Program.conexaoBD);
+                conectar.Open();
+
+                try
+                {
+                    string query = "UPDATE lancamentos SET " +
+                                   "nome = @nome, " +
+                                   "categoria = @categoria, " +
+                                   "tipo = @tipo, " +
+                                   "fornecedor = @fornecedor, " +
+                                   "recorrente = @recorrente, " +
+                                   "dia_vencimento = @dia_vencimento, " +
+                                   "observacoes = @observacoes, " +
+                                   "ativo = @ativo " +
+                                   "WHERE id_lancamentos = @id;";
+
+                    MySqlCommand editar = new MySqlCommand(query, conectar);
+
+                    editar.Parameters.AddWithValue("@nome", txt_categoria.Text);
+                    editar.Parameters.AddWithValue("@categoria", textBox6.Text);
+
+                    string tipo = checkBox1.Checked ? "Receita" :
+                                  checkBox2.Checked ? "Despesa" : "Despesa";
+                    editar.Parameters.AddWithValue("@tipo", tipo);
+
+                    editar.Parameters.AddWithValue("@fornecedor", textBox7.Text);
+                    editar.Parameters.AddWithValue("@recorrente", checkBox4.Checked);
+                    editar.Parameters.AddWithValue("@dia_vencimento", Convert.ToInt32(textBox9.Text));
+                    editar.Parameters.AddWithValue("@observacoes", textBox8.Text);
+                    editar.Parameters.AddWithValue("@ativo", checkBox5.Checked);
+
+                    editar.Parameters.AddWithValue("@id", Convert.ToInt32(label_id.Text));
+
+                    editar.ExecuteNonQuery();
+
+                    MessageBox.Show("Informações atualizadas com sucesso!", "Sucesso", MessageBoxButtons.OK);
+
+                    // Limpar campos e ID
+                    txt_categoria.Text = "";
+                    textBox6.Text = "";
+                    textBox7.Text = "";
+                    textBox9.Text = "";
+                    textBox8.Text = "";
+                    checkBox1.Checked = false;
+                    checkBox2.Checked = false;
+                    checkBox4.Checked = false;
+                    checkBox5.Checked = false;
+                    label_id.Text = "";
+
+                    // Atualiza o DataGridView
+                    CarregarLancamentos(); // Crie esse método se ainda não tiver
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao atualizar as informações: " + ex.Message);
+                }
+                finally
+                {
+                    conectar.Close();
+                }
+            
+        }
+
+      
+        private void CarregarLancamentos()
+        {
+            string query = "SELECT id_lancamentos, nome, categoria, tipo, fornecedor, recorrente, dia_vencimento, observacoes FROM lancamentos;";
+
+
+            DataTable tabela = new DataTable(); // Cria o DataTable apenas uma vez
+
+            using (MySqlConnection connection = new MySqlConnection(Program.conexaoBD))
+            {
+                try
+                {
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    using (MySqlDataAdapter adaptador = new MySqlDataAdapter(query, connection))
+                    {
+                        adaptador.Fill(tabela); // Preenche o DataTable com os dados do banco
+
+                        // Renomear as colunas conforme necessário
+                        //tabela.Columns["id_lancamentos"].ColumnName = "Id:";
+                        tabela.Columns["nome"].ColumnName = "Lançamento:";
+                        tabela.Columns["categoria"].ColumnName = "Categoria:";
+                        tabela.Columns["tipo"].ColumnName = "Entrada ou Saída";
+                        tabela.Columns["fornecedor"].ColumnName = "Fornecedor";
+                        tabela.Columns["recorrente"].ColumnName = "Recorrente:";
+                        tabela.Columns["dia_vencimento"].ColumnName = "Data Vencimento:";
+                        tabela.Columns["observacoes"].ColumnName = "Observações:";
+                        //tabela.Columns["ativo"].ColumnName = "Ativo:";
+                    }
+
+                    DgvLancamentos.DataSource = tabela; // Atribui ao DataGridView depois de renomear
+                    DgvLancamentos.Columns["id_lancamentos"].Visible = false; // não mostra o ID na dgv
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro, não foi possível estabeler conexão com o banco de dados: " + ex.Message);
+
+                }
+                finally
+                {
+                    if (connection.State != ConnectionState.Closed)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
         }
 
         private void BtnApagar_Click(object sender, EventArgs e)
@@ -1009,6 +1128,35 @@ namespace MonitorFinanceiro
                         conn.Close();
                     }
                 }
+            }
+        }
+
+        private void DgvLancamentos_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Evita clicar no cabeçalho
+            {
+                // Pega a linha selecionada
+                DataGridViewRow linha = DgvLancamentos.Rows[e.RowIndex];
+
+                // Pega o valor do ID da linha (ajuste o nome da coluna conforme seu DB)
+                label_id.Text = linha.Cells["id_lancamentos"].Value.ToString();
+
+                // Pega os valores e joga nos campos para editar
+                txt_categoria.Text = linha.Cells["Lançamento:"].Value.ToString();
+                textBox6.Text = linha.Cells["Categoria:"].Value.ToString();
+                string tipo = linha.Cells["Entrada ou Saída"].Value.ToString();
+
+                checkBox1.Checked = (tipo == "Receita");
+                checkBox2.Checked = (tipo == "Despesa");
+
+                textBox7.Text = linha.Cells["Fornecedor"].Value.ToString();
+                checkBox4.Checked = Convert.ToBoolean(linha.Cells["Recorrente:"].Value);
+                textBox9.Text = linha.Cells["Data Vencimento:"].Value.ToString();
+                textBox8.Text = linha.Cells["Observações:"].Value.ToString();
+
+                // Aqui, se tiver um checkbox ativo, ajuste conforme necessário
+                // Exemplo:
+                // checkBox5.Checked = Convert.ToBoolean(linha.Cells["Ativo:"].Value);
             }
         }
     }
