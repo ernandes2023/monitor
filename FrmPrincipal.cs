@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -31,8 +32,11 @@ namespace MonitorFinanceiro
             LimparCampos();
 
             tabControl1.Visible = false;
+            pnlLogin.Visible = false;
             gbxDeletedUsers.Visible = false;
+            btnShowPass4.Image = Properties.Resources.olho2;
         }
+
         private void LimparCampos()
         {
             txt_categoria.Text = "";
@@ -138,6 +142,30 @@ namespace MonitorFinanceiro
             senhaVisivel = !senhaVisivel;
             AtualizarBotaoVisualizarSenha3();
         }
+
+        private void AtualizarBotaoVisualizarSenha4()
+        {
+            if (senhaVisivel)
+            {
+                // Se a senha estiver visível, mostra a imagem de olho fechado
+                btnShowPass4.Image = Properties.Resources.olho1;
+                txtPass2.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                // Se a senha estiver oculta, mostra a imagem de olho aberto
+                btnShowPass4.Image = Properties.Resources.olho2;
+                txtPass2.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void btnShowPass4_Click(object sender, EventArgs e)
+        {
+            // Alterna a visibilidade da senha
+            senhaVisivel = !senhaVisivel;
+            AtualizarBotaoVisualizarSenha4();
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -548,7 +576,7 @@ namespace MonitorFinanceiro
 
         private void btn_delete_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Deseja Realmente Excluir Este Usuário?",
+            DialogResult result = MessageBox.Show("Deseja realmente excluir este usuário?",
                 "Excluir Usuário.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result == DialogResult.No)
@@ -583,10 +611,11 @@ namespace MonitorFinanceiro
 
                     UpdateDgvUser();
                     ClearTextbox();
+                    UpdateDgvUserDisabled();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Erro ao editar as informações: " + ex.Message,
+                    MessageBox.Show("Erro ao apagar as informações: " + ex.Message,
                         "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
@@ -1064,8 +1093,17 @@ namespace MonitorFinanceiro
 
         private void RestoreUser_Click(object sender, EventArgs e)
         {
-            UpdateDgvUserDisabled();
-            gbxDeletedUsers.Visible = true;
+            DialogResult = MessageBox.Show("Está operação pode somente ser execultada por um usuário Administrador. \n" +
+                "Deseja Continhar?", "Atenção!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (DialogResult == DialogResult.No)
+            {
+                return;
+            }
+            else
+            {
+                pnlLogin.Visible = true;
+            }
         }
 
         private void DgvUserDisabled_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -1115,6 +1153,7 @@ namespace MonitorFinanceiro
 
                     UpdateDgvUser();
                     ClearTextbox();
+                    UpdateDgvUserDisabled();
                 }
                 catch (Exception ex)
                 {
@@ -1158,6 +1197,75 @@ namespace MonitorFinanceiro
                 // Exemplo:
                 // checkBox5.Checked = Convert.ToBoolean(linha.Cells["Ativo:"].Value);
             }
+        }
+
+        private void btnLogin2_Click(object sender, EventArgs e)
+        {
+            string usuario = txtUser2.Text.Trim();
+            string senhaDigitada = txtPass2.Text;
+
+            if (string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(senhaDigitada))
+            {
+                MessageBox.Show("Todos os campos devem ser preenchidos!",
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(Program.conexaoBD))
+                {
+                    conn.Open();
+
+                    string query = "SELECT id_user, name_user, password FROM users WHERE email = @Email";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Email", usuario);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                UserId = reader.GetInt32("id_user");
+                                string nameUser = reader.GetString("name_user");
+                                string hashSalvo = reader.GetString("password");
+
+                                bool senhaCorreta = BCrypt.Net.BCrypt.Verify(senhaDigitada, hashSalvo);
+
+                                if (senhaCorreta)
+                                {
+                                    UpdateDgvUserDisabled();
+                                    gbxDeletedUsers.Visible = true;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Usuário ou Senha estão incorretos. \n Por favor, tente novamente.",
+                                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+
+                                txtUser2.Text = string.Empty;
+                                txtPass2.Text = string.Empty;
+                                pnlLogin.Visible = false;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Usuário não encontrado.", "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Erro ao conectar com o banco de dados: " + ex.Message,
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExit2_Click(object sender, EventArgs e)
+        {
+            gbxDeletedUsers.Visible = false;
         }
     }
 }

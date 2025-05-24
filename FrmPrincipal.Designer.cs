@@ -45,8 +45,10 @@ namespace MonitorFinanceiro
             this.lblWarning = new System.Windows.Forms.Label();
             this.btnShowPass = new System.Windows.Forms.Button();
             this.lblPass2 = new System.Windows.Forms.Label();
+            this.progressBar2 = new ProgressBarCustomizada();
             this.CheckAdm = new System.Windows.Forms.CheckBox();
             this.lblPass1 = new System.Windows.Forms.Label();
+            this.progressBar1 = new ProgressBarCustomizada();
             this.btn_limpar = new System.Windows.Forms.Button();
             this.txtConfPass = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -64,6 +66,7 @@ namespace MonitorFinanceiro
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.DgvLancamentos = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label_id = new System.Windows.Forms.Label();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -104,9 +107,14 @@ namespace MonitorFinanceiro
             this.LblEmail = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.LblNameUser = new System.Windows.Forms.Label();
-            this.label_id = new System.Windows.Forms.Label();
-            this.progressBar2 = new ProgressBarCustomizada();
-            this.progressBar1 = new ProgressBarCustomizada();
+            this.pnlLogin = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtUser2 = new System.Windows.Forms.TextBox();
+            this.txtPass2 = new System.Windows.Forms.TextBox();
+            this.btnLogin2 = new System.Windows.Forms.Button();
+            this.btnShowPass4 = new System.Windows.Forms.Button();
+            this.btnExit2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -122,6 +130,7 @@ namespace MonitorFinanceiro
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.PanelLogin.SuspendLayout();
+            this.pnlLogin.SuspendLayout();
             this.SuspendLayout();
             // 
             // txt_nome_usuario
@@ -148,7 +157,7 @@ namespace MonitorFinanceiro
             this.Nome.Location = new System.Drawing.Point(8, 19);
             this.Nome.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Nome.Name = "Nome";
-            this.Nome.Size = new System.Drawing.Size(46, 16);
+            this.Nome.Size = new System.Drawing.Size(45, 16);
             this.Nome.TabIndex = 2;
             this.Nome.Text = "Nome:";
             // 
@@ -158,7 +167,7 @@ namespace MonitorFinanceiro
             this.label2.Location = new System.Drawing.Point(8, 65);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 16);
+            this.label2.Size = new System.Drawing.Size(48, 16);
             this.label2.TabIndex = 5;
             this.label2.Text = "E-mail:";
             // 
@@ -177,7 +186,7 @@ namespace MonitorFinanceiro
             this.label4.Location = new System.Drawing.Point(8, 111);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(49, 16);
+            this.label4.Size = new System.Drawing.Size(48, 16);
             this.label4.TabIndex = 8;
             this.label4.Text = "Senha:";
             // 
@@ -276,12 +285,20 @@ namespace MonitorFinanceiro
             this.lblPass2.Size = new System.Drawing.Size(202, 16);
             this.lblPass2.TabIndex = 15;
             // 
+            // progressBar2
+            // 
+            this.progressBar2.Location = new System.Drawing.Point(217, 159);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(202, 10);
+            this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar2.TabIndex = 15;
+            // 
             // CheckAdm
             // 
             this.CheckAdm.AutoSize = true;
             this.CheckAdm.Location = new System.Drawing.Point(317, 64);
             this.CheckAdm.Name = "CheckAdm";
-            this.CheckAdm.Size = new System.Drawing.Size(104, 20);
+            this.CheckAdm.Size = new System.Drawing.Size(103, 20);
             this.CheckAdm.TabIndex = 15;
             this.CheckAdm.Text = "Adminstrador";
             this.CheckAdm.UseVisualStyleBackColor = true;
@@ -293,6 +310,14 @@ namespace MonitorFinanceiro
             this.lblPass1.Name = "lblPass1";
             this.lblPass1.Size = new System.Drawing.Size(202, 16);
             this.lblPass1.TabIndex = 14;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(8, 159);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(202, 10);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.TabIndex = 15;
             // 
             // btn_limpar
             // 
@@ -319,7 +344,7 @@ namespace MonitorFinanceiro
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(215, 111);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(89, 16);
+            this.label15.Size = new System.Drawing.Size(88, 16);
             this.label15.TabIndex = 12;
             this.label15.Text = "Confir. Senha:";
             // 
@@ -364,6 +389,7 @@ namespace MonitorFinanceiro
             this.tabPage1.Controls.Add(this.gbxDeletedUsers);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.pnlLogin);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
@@ -385,10 +411,11 @@ namespace MonitorFinanceiro
             // 
             // gbxDeletedUsers
             // 
+            this.gbxDeletedUsers.Controls.Add(this.btnExit2);
             this.gbxDeletedUsers.Controls.Add(this.DgvUserDisabled);
             this.gbxDeletedUsers.Location = new System.Drawing.Point(442, 58);
             this.gbxDeletedUsers.Name = "gbxDeletedUsers";
-            this.gbxDeletedUsers.Size = new System.Drawing.Size(530, 231);
+            this.gbxDeletedUsers.Size = new System.Drawing.Size(531, 231);
             this.gbxDeletedUsers.TabIndex = 14;
             this.gbxDeletedUsers.TabStop = false;
             this.gbxDeletedUsers.Text = "Usuários Apagados:";
@@ -398,7 +425,7 @@ namespace MonitorFinanceiro
             this.DgvUserDisabled.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DgvUserDisabled.Location = new System.Drawing.Point(6, 21);
             this.DgvUserDisabled.Name = "DgvUserDisabled";
-            this.DgvUserDisabled.Size = new System.Drawing.Size(516, 200);
+            this.DgvUserDisabled.Size = new System.Drawing.Size(519, 175);
             this.DgvUserDisabled.TabIndex = 0;
             this.DgvUserDisabled.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvUserDisabled_CellContentClick);
             this.DgvUserDisabled.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvUserDisabled_CellContentDoubleClick);
@@ -500,13 +527,23 @@ namespace MonitorFinanceiro
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Entradas e Saídas";
             // 
+            // label_id
+            // 
+            this.label_id.AutoSize = true;
+            this.label_id.Location = new System.Drawing.Point(308, 21);
+            this.label_id.Name = "label_id";
+            this.label_id.Size = new System.Drawing.Size(41, 16);
+            this.label_id.TabIndex = 21;
+            this.label_id.Text = "label3";
+            this.label_id.Visible = false;
+            // 
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
             this.checkBox5.Location = new System.Drawing.Point(8, 155);
             this.checkBox5.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(55, 20);
+            this.checkBox5.Size = new System.Drawing.Size(54, 20);
             this.checkBox5.TabIndex = 20;
             this.checkBox5.Text = "Ativo";
             this.checkBox5.UseVisualStyleBackColor = true;
@@ -517,7 +554,7 @@ namespace MonitorFinanceiro
             this.checkBox4.Location = new System.Drawing.Point(8, 127);
             this.checkBox4.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(90, 20);
+            this.checkBox4.Size = new System.Drawing.Size(89, 20);
             this.checkBox4.TabIndex = 19;
             this.checkBox4.Text = "Recorrente";
             this.checkBox4.UseVisualStyleBackColor = true;
@@ -528,7 +565,7 @@ namespace MonitorFinanceiro
             this.label18.Location = new System.Drawing.Point(175, 225);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(83, 16);
+            this.label18.Size = new System.Drawing.Size(82, 16);
             this.label18.TabIndex = 18;
             this.label18.Text = "Observações";
             // 
@@ -547,7 +584,7 @@ namespace MonitorFinanceiro
             this.label19.Location = new System.Drawing.Point(8, 225);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(104, 16);
+            this.label19.Size = new System.Drawing.Size(103, 16);
             this.label19.TabIndex = 16;
             this.label19.Text = "Data vencimento";
             // 
@@ -566,7 +603,7 @@ namespace MonitorFinanceiro
             this.label17.Location = new System.Drawing.Point(175, 179);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(73, 16);
+            this.label17.Size = new System.Drawing.Size(72, 16);
             this.label17.TabIndex = 14;
             this.label17.Text = "Fornecedor";
             // 
@@ -585,7 +622,7 @@ namespace MonitorFinanceiro
             this.label16.Location = new System.Drawing.Point(8, 179);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(63, 16);
+            this.label16.Size = new System.Drawing.Size(62, 16);
             this.label16.TabIndex = 12;
             this.label16.Text = "Categoria";
             // 
@@ -604,7 +641,7 @@ namespace MonitorFinanceiro
             this.checkBox2.Location = new System.Drawing.Point(8, 99);
             this.checkBox2.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(60, 20);
+            this.checkBox2.Size = new System.Drawing.Size(59, 20);
             this.checkBox2.TabIndex = 5;
             this.checkBox2.Text = "Saída";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -615,7 +652,7 @@ namespace MonitorFinanceiro
             this.checkBox1.Location = new System.Drawing.Point(8, 71);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(72, 20);
+            this.checkBox1.Size = new System.Drawing.Size(71, 20);
             this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "Entrada";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -626,7 +663,7 @@ namespace MonitorFinanceiro
             this.label6.Location = new System.Drawing.Point(8, 21);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 16);
+            this.label6.Size = new System.Drawing.Size(65, 16);
             this.label6.TabIndex = 1;
             this.label6.Text = "Descrição";
             // 
@@ -761,7 +798,7 @@ namespace MonitorFinanceiro
             this.label14.Location = new System.Drawing.Point(205, 119);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(131, 16);
+            this.label14.Size = new System.Drawing.Size(130, 16);
             this.label14.TabIndex = 7;
             this.label14.Text = "Forma de pagamento";
             // 
@@ -771,7 +808,7 @@ namespace MonitorFinanceiro
             this.label13.Location = new System.Drawing.Point(7, 119);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(37, 16);
+            this.label13.Size = new System.Drawing.Size(36, 16);
             this.label13.TabIndex = 5;
             this.label13.Text = "Valor";
             // 
@@ -789,7 +826,7 @@ namespace MonitorFinanceiro
             this.label12.Location = new System.Drawing.Point(354, 20);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(75, 16);
+            this.label12.Size = new System.Drawing.Size(74, 16);
             this.label12.TabIndex = 3;
             this.label12.Text = "Data e hora";
             // 
@@ -807,7 +844,7 @@ namespace MonitorFinanceiro
             this.label11.Location = new System.Drawing.Point(7, 48);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(133, 16);
+            this.label11.Size = new System.Drawing.Size(132, 16);
             this.label11.TabIndex = 1;
             this.label11.Text = "Selecione a categoria";
             // 
@@ -911,31 +948,80 @@ namespace MonitorFinanceiro
             this.LblNameUser.TabIndex = 14;
             this.LblNameUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label_id
+            // pnlLogin
             // 
-            this.label_id.AutoSize = true;
-            this.label_id.Location = new System.Drawing.Point(308, 21);
-            this.label_id.Name = "label_id";
-            this.label_id.Size = new System.Drawing.Size(42, 16);
-            this.label_id.TabIndex = 21;
-            this.label_id.Text = "label3";
-            this.label_id.Visible = false;
+            this.pnlLogin.Controls.Add(this.btnShowPass4);
+            this.pnlLogin.Controls.Add(this.btnLogin2);
+            this.pnlLogin.Controls.Add(this.txtPass2);
+            this.pnlLogin.Controls.Add(this.txtUser2);
+            this.pnlLogin.Controls.Add(this.label5);
+            this.pnlLogin.Controls.Add(this.label3);
+            this.pnlLogin.Location = new System.Drawing.Point(549, 94);
+            this.pnlLogin.Name = "pnlLogin";
+            this.pnlLogin.Size = new System.Drawing.Size(334, 119);
+            this.pnlLogin.TabIndex = 15;
             // 
-            // progressBar2
+            // label3
             // 
-            this.progressBar2.Location = new System.Drawing.Point(217, 159);
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(202, 10);
-            this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar2.TabIndex = 15;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 16);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Usuário:";
             // 
-            // progressBar1
+            // label5
             // 
-            this.progressBar1.Location = new System.Drawing.Point(8, 159);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(202, 10);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 15;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 58);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(48, 16);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Senha:";
+            // 
+            // txtUser2
+            // 
+            this.txtUser2.Location = new System.Drawing.Point(3, 33);
+            this.txtUser2.Name = "txtUser2";
+            this.txtUser2.Size = new System.Drawing.Size(328, 22);
+            this.txtUser2.TabIndex = 2;
+            // 
+            // txtPass2
+            // 
+            this.txtPass2.Location = new System.Drawing.Point(3, 77);
+            this.txtPass2.Name = "txtPass2";
+            this.txtPass2.Size = new System.Drawing.Size(200, 22);
+            this.txtPass2.TabIndex = 3;
+            this.txtPass2.UseSystemPasswordChar = true;
+            // 
+            // btnLogin2
+            // 
+            this.btnLogin2.Location = new System.Drawing.Point(243, 61);
+            this.btnLogin2.Name = "btnLogin2";
+            this.btnLogin2.Size = new System.Drawing.Size(88, 38);
+            this.btnLogin2.TabIndex = 4;
+            this.btnLogin2.Text = "Login";
+            this.btnLogin2.UseVisualStyleBackColor = true;
+            this.btnLogin2.Click += new System.EventHandler(this.btnLogin2_Click);
+            // 
+            // btnShowPass4
+            // 
+            this.btnShowPass4.Location = new System.Drawing.Point(209, 77);
+            this.btnShowPass4.Name = "btnShowPass4";
+            this.btnShowPass4.Size = new System.Drawing.Size(28, 23);
+            this.btnShowPass4.TabIndex = 16;
+            this.btnShowPass4.UseVisualStyleBackColor = true;
+            this.btnShowPass4.Click += new System.EventHandler(this.btnShowPass4_Click);
+            // 
+            // btnExit2
+            // 
+            this.btnExit2.Location = new System.Drawing.Point(450, 202);
+            this.btnExit2.Name = "btnExit2";
+            this.btnExit2.Size = new System.Drawing.Size(75, 23);
+            this.btnExit2.TabIndex = 1;
+            this.btnExit2.Text = "Sair";
+            this.btnExit2.UseVisualStyleBackColor = true;
+            this.btnExit2.Click += new System.EventHandler(this.btnExit2_Click);
             // 
             // FrmPrincipal
             // 
@@ -971,6 +1057,8 @@ namespace MonitorFinanceiro
             this.groupBox4.PerformLayout();
             this.PanelLogin.ResumeLayout(false);
             this.PanelLogin.PerformLayout();
+            this.pnlLogin.ResumeLayout(false);
+            this.pnlLogin.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1052,6 +1140,14 @@ namespace MonitorFinanceiro
         private GroupBox gbxDeletedUsers;
         private DataGridView DgvUserDisabled;
         private Label label_id;
+        private Panel pnlLogin;
+        private Button btnLogin2;
+        private TextBox txtPass2;
+        private TextBox txtUser2;
+        private Label label5;
+        private Label label3;
+        private Button btnShowPass4;
+        private Button btnExit2;
     }
 }
 
