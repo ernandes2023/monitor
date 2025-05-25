@@ -115,6 +115,8 @@ namespace MonitorFinanceiro
             this.btnLogin2 = new System.Windows.Forms.Button();
             this.btnShowPass4 = new System.Windows.Forms.Button();
             this.btnExit2 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btnUnlock = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -214,6 +216,8 @@ namespace MonitorFinanceiro
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.Controls.Add(this.btnUnlock);
             this.groupBox1.Controls.Add(this.btnShowPass2);
             this.groupBox1.Controls.Add(this.lblWarning);
             this.groupBox1.Controls.Add(this.btnShowPass);
@@ -941,7 +945,6 @@ namespace MonitorFinanceiro
             // 
             // LblNameUser
             // 
-            this.LblNameUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LblNameUser.Location = new System.Drawing.Point(566, 9);
             this.LblNameUser.Name = "LblNameUser";
             this.LblNameUser.Size = new System.Drawing.Size(437, 21);
@@ -1023,6 +1026,24 @@ namespace MonitorFinanceiro
             this.btnExit2.UseVisualStyleBackColor = true;
             this.btnExit2.Click += new System.EventHandler(this.btnExit2_Click);
             // 
+            // label7
+            // 
+            this.label7.Location = new System.Drawing.Point(329, 378);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(384, 57);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "label7";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // btnUnlock
+            // 
+            this.btnUnlock.Location = new System.Drawing.Point(162, 243);
+            this.btnUnlock.Name = "btnUnlock";
+            this.btnUnlock.Size = new System.Drawing.Size(102, 25);
+            this.btnUnlock.TabIndex = 16;
+            this.btnUnlock.Text = "Desbloquear";
+            this.btnUnlock.UseVisualStyleBackColor = true;
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1032,11 +1053,12 @@ namespace MonitorFinanceiro
             this.Controls.Add(this.btn_sair);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.PanelLogin);
+            this.Controls.Add(this.label7);
             this.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Monitor";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1148,6 +1170,8 @@ namespace MonitorFinanceiro
         private Label label3;
         private Button btnShowPass4;
         private Button btnExit2;
+        private Label label7;
+        private Button btnUnlock;
     }
 }
 

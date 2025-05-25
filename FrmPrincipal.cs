@@ -34,7 +34,11 @@ namespace MonitorFinanceiro
             tabControl1.Visible = false;
             pnlLogin.Visible = false;
             gbxDeletedUsers.Visible = false;
+            btnUnlock.Visible = false;
+
+
             btnShowPass4.Image = Properties.Resources.olho2;
+
         }
 
         private void LimparCampos()
@@ -360,11 +364,52 @@ namespace MonitorFinanceiro
 
         private void dgvUser_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            idUser = Convert.ToInt32(dgvUser.Rows[e.RowIndex].Cells[0].Value);
-            txt_nome_usuario.Text = dgvUser.Rows[e.RowIndex].Cells[1].Value.ToString();
-            txt_email.Text = dgvUser.Rows[e.RowIndex].Cells[2].Value.ToString();
-        }
+            groupBox1.BackColor = ColorTranslator.FromHtml(default);
+            lblWarning.Text = string.Empty;
+            btnUnlock.Visible = false;
 
+            // Pegando o ID ou Email da linha clicada
+            int idSelecionado = Convert.ToInt32(dgvUser.Rows[e.RowIndex].Cells[0].Value);
+            string emailSelecionado = dgvUser.Rows[e.RowIndex].Cells[2].Value.ToString();
+
+            using (MySqlConnection conn = new MySqlConnection(Program.conexaoBD))
+            {
+                conn.Open();
+
+                string query = "SELECT is_blocked FROM users WHERE id_user = @IdUser";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdUser", idSelecionado);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            bool bloqueado = reader.GetBoolean("is_blocked");
+                            if (bloqueado)
+                            {
+                                groupBox1.BackColor = ColorTranslator.FromHtml("#FEC6C6");
+                                lblWarning.Text = "Usuário Bloqueado!";
+                                btnUnlock.Visible = true;
+
+                                // Aqui você pode exibir um botão "Desbloquear" se quiser.
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Usuário não encontrado no banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+
+            // Preenche os campos com os dados da linha clicada
+            idUser = idSelecionado;
+            txt_nome_usuario.Text = dgvUser.Rows[e.RowIndex].Cells[1].Value.ToString();
+            txt_email.Text = emailSelecionado;
+        }
         private void txt_nome_usuario_TextChanged(object sender, EventArgs e)
         {
             txt_nome_usuario.BackColor = ColorTranslator.FromHtml(default);
@@ -1020,6 +1065,8 @@ namespace MonitorFinanceiro
 
         int UserId; // Variavel para armazenar o id do usuario logado no sistema.
 
+        int tentativasFalhas = 0;  // Declare na classe
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string usuario = txtEmailLogin.Text.Trim();
@@ -1038,7 +1085,7 @@ namespace MonitorFinanceiro
                 {
                     conn.Open();
 
-                    string query = "SELECT id_user, name_user, password FROM users WHERE email = @Email";
+                    string query = "SELECT id_user, name_user, password, is_blocked FROM users WHERE email = @Email";
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@Email", usuario);
@@ -1047,6 +1094,14 @@ namespace MonitorFinanceiro
                         {
                             if (reader.Read())
                             {
+                                bool bloqueado = reader.GetBoolean("is_blocked");
+                                if (bloqueado)
+                                {
+                                    MessageBox.Show("Sua conta está bloqueada. Entre em contato com o suporte.", "Conta Bloqueada",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                    return;
+                                }
+
                                 UserId = reader.GetInt32("id_user");
                                 string nameUser = reader.GetString("name_user");
                                 string hashSalvo = reader.GetString("password");
@@ -1055,19 +1110,36 @@ namespace MonitorFinanceiro
 
                                 if (senhaCorreta)
                                 {
-                                    MessageBox.Show("Login Bem-sucedido! \n Seja bem vindo " + UserId + " - " + nameUser + ".", "Sucesso",
+                                    MessageBox.Show("Login Bem-sucedido! \nSeja bem-vindo " + UserId + " - " + nameUser + ".", "Sucesso",
                                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                    // Exemplo: abrir tela principal
-                                    //new user_regist().Show();
-                                    //this.Hide();
                                     tabControl1.Visible = true;
-                                    LblNameUser.Text = $"Olá seja bem vindo {nameUser}.";
+                                    LblNameUser.Text = $"Olá, seja bem-vindo {nameUser}.";
+                                    tentativasFalhas = 0; // Zera tentativas ao logar com sucesso
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Senha incorreta.", "Erro",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    tentativasFalhas++;
+
+                                    reader.Close(); // precisa fechar antes de fazer outro comando!
+
+                                    if (tentativasFalhas >= 5)
+                                    {
+                                        string updateQuery = "UPDATE users SET is_blocked = 1 WHERE email = @Email";
+                                        using (MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn))
+                                        {
+                                            updateCmd.Parameters.AddWithValue("@Email", usuario);
+                                            updateCmd.ExecuteNonQuery();
+                                        }
+
+                                        MessageBox.Show("Você excedeu o número máximo de tentativas. Sua conta foi bloqueada.", "Conta Bloqueada",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show($"Senha incorreta.\nVocê tem mais {5 - tentativasFalhas} tentativas.", "Erro",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
                                 }
                             }
                             else
