@@ -916,89 +916,86 @@ namespace MonitorFinanceiro
                 {
                     conectar.Close();
                 }
-
-                
             }
         }
-
         
-            private void BtnEditar_Click(object sender, EventArgs e)
+        private void BtnEditar_Click(object sender, EventArgs e)
+        {
+            // Verifica se o ID está preenchido (ou seja, se foi selecionado um item)
+            if (string.IsNullOrWhiteSpace(label_id.Text))
             {
-                // Verifica se o ID está preenchido (ou seja, se foi selecionado um item)
-                if (string.IsNullOrWhiteSpace(label_id.Text))
-                {
-                    MessageBox.Show("Selecione um item para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                MessageBox.Show("Selecione um item para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                // Verifica se todos os campos obrigatórios estão preenchidos
-                if (txt_categoria.Text == "" || textBox6.Text == "" || textBox7.Text == "" || textBox9.Text == "")
-                {
-                    MessageBox.Show("Todos os campos precisam ser preenchidos!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txt_categoria.Select();
-                    return;
-                }
+            // Verifica se todos os campos obrigatórios estão preenchidos
+            if (txt_categoria.Text == "" || textBox6.Text == "" || textBox7.Text == "" || textBox9.Text == "")
+            {
+                MessageBox.Show("Todos os campos precisam ser preenchidos!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txt_categoria.Select();
+                return;
+            }
 
-                MySqlConnection conectar = new MySqlConnection(Program.conexaoBD);
-                conectar.Open();
+            MySqlConnection conectar = new MySqlConnection(Program.conexaoBD);
+            conectar.Open();
 
-                try
-                {
-                    string query = "UPDATE lancamentos SET " +
-                                   "nome = @nome, " +
-                                   "categoria = @categoria, " +
-                                   "tipo = @tipo, " +
-                                   "fornecedor = @fornecedor, " +
-                                   "recorrente = @recorrente, " +
-                                   "dia_vencimento = @dia_vencimento, " +
-                                   "observacoes = @observacoes, " +
-                                   "ativo = @ativo " +
-                                   "WHERE id_lancamentos = @id;";
+            try
+            {
+                string query = "UPDATE lancamentos SET " +
+                                "nome = @nome, " +
+                                "categoria = @categoria, " +
+                                "tipo = @tipo, " +
+                                "fornecedor = @fornecedor, " +
+                                "recorrente = @recorrente, " +
+                                "dia_vencimento = @dia_vencimento, " +
+                                "observacoes = @observacoes, " +
+                                "ativo = @ativo " +
+                                "WHERE id_lancamentos = @id;";
 
-                    MySqlCommand editar = new MySqlCommand(query, conectar);
+                MySqlCommand editar = new MySqlCommand(query, conectar);
 
-                    editar.Parameters.AddWithValue("@nome", txt_categoria.Text);
-                    editar.Parameters.AddWithValue("@categoria", textBox6.Text);
+                editar.Parameters.AddWithValue("@nome", txt_categoria.Text);
+                editar.Parameters.AddWithValue("@categoria", textBox6.Text);
 
-                    string tipo = checkBox1.Checked ? "Receita" :
-                                  checkBox2.Checked ? "Despesa" : "Despesa";
-                    editar.Parameters.AddWithValue("@tipo", tipo);
+                string tipo = checkBox1.Checked ? "Receita" :
+                                checkBox2.Checked ? "Despesa" : "Despesa";
+                editar.Parameters.AddWithValue("@tipo", tipo);
 
-                    editar.Parameters.AddWithValue("@fornecedor", textBox7.Text);
-                    editar.Parameters.AddWithValue("@recorrente", checkBox4.Checked);
-                    editar.Parameters.AddWithValue("@dia_vencimento", Convert.ToInt32(textBox9.Text));
-                    editar.Parameters.AddWithValue("@observacoes", textBox8.Text);
-                    editar.Parameters.AddWithValue("@ativo", checkBox5.Checked);
+                editar.Parameters.AddWithValue("@fornecedor", textBox7.Text);
+                editar.Parameters.AddWithValue("@recorrente", checkBox4.Checked);
+                editar.Parameters.AddWithValue("@dia_vencimento", Convert.ToInt32(textBox9.Text));
+                editar.Parameters.AddWithValue("@observacoes", textBox8.Text);
+                editar.Parameters.AddWithValue("@ativo", checkBox5.Checked);
 
-                    editar.Parameters.AddWithValue("@id", Convert.ToInt32(label_id.Text));
+                editar.Parameters.AddWithValue("@id", Convert.ToInt32(label_id.Text));
 
-                    editar.ExecuteNonQuery();
+                editar.ExecuteNonQuery();
 
-                    MessageBox.Show("Informações atualizadas com sucesso!", "Sucesso", MessageBoxButtons.OK);
+                MessageBox.Show("Informações atualizadas com sucesso!", "Sucesso", MessageBoxButtons.OK);
 
-                    // Limpar campos e ID
-                    txt_categoria.Text = "";
-                    textBox6.Text = "";
-                    textBox7.Text = "";
-                    textBox9.Text = "";
-                    textBox8.Text = "";
-                    checkBox1.Checked = false;
-                    checkBox2.Checked = false;
-                    checkBox4.Checked = false;
-                    checkBox5.Checked = false;
-                    label_id.Text = "";
+                // Limpar campos e ID
+                txt_categoria.Text = "";
+                textBox6.Text = "";
+                textBox7.Text = "";
+                textBox9.Text = "";
+                textBox8.Text = "";
+                checkBox1.Checked = false;
+                checkBox2.Checked = false;
+                checkBox4.Checked = false;
+                checkBox5.Checked = false;
+                label_id.Text = "";
 
-                    // Atualiza o DataGridView
-                    CarregarLancamentos(); // Crie esse método se ainda não tiver
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao atualizar as informações: " + ex.Message);
-                }
-                finally
-                {
-                    conectar.Close();
-                }
+                // Atualiza o DataGridView
+                CarregarLancamentos(); // Crie esse método se ainda não tiver
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao atualizar as informações: " + ex.Message);
+            }
+            finally
+            {
+                conectar.Close();
+            }
             
         }
 
@@ -1338,6 +1335,65 @@ namespace MonitorFinanceiro
         private void btnExit2_Click(object sender, EventArgs e)
         {
             gbxDeletedUsers.Visible = false;
+        }
+
+        private void btnUnlock_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Deseja realmente desbloquear este usuário?",
+    "Excluir Usuário.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+            else
+            {
+                MySqlConnection conn = new MySqlConnection(Program.conexaoBD);
+
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+
+                try
+                {
+                    string valueActive = "0";
+
+                    MySqlCommand insertDB = new MySqlCommand
+                        ("UPDATE users SET is_blocked=@Isblocked WHERE id_user=@IdUser", conn);
+
+                    insertDB.Parameters.Add("@Isblocked", MySqlDbType.Int32).Value = valueActive;
+                    insertDB.Parameters.Add("@IdUser", MySqlDbType.Int32).Value = Convert.ToInt32(idUser);
+
+                    // Executa o comando de inserção
+                    insertDB.ExecuteNonQuery();
+
+                    // Exibe uma mensagem de sucesso
+                    MessageBox.Show("Usuário desbloqueado com sucesso!",
+                        "Sucesso", MessageBoxButtons.OK);
+
+                    UpdateDgvUser();
+                    ClearTextbox();
+                    UpdateDgvUserDisabled();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao alterar as informações: " + ex.Message,
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    if (conn.State != ConnectionState.Closed)
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
+        private void txtEmailLogin_TextChanged(object sender, EventArgs e)
+        {
+            tentativasFalhas = 0;
         }
     }
 }
