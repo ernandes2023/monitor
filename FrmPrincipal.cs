@@ -1052,8 +1052,59 @@ namespace MonitorFinanceiro
 
         private void BtnApagar_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(label_id.Text))
+            {
+                MessageBox.Show("Nenhum lançamento selecionado para apagar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            DialogResult resultado = MessageBox.Show("Tem certeza que deseja apagar este lançamento?",
+                                                     "Confirmar Exclusão",
+                                                     MessageBoxButtons.YesNo,
+                                                     MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+            {
+                MySqlConnection conectar = new MySqlConnection(Program.conexaoBD);
+
+                try
+                {
+                    conectar.Open();
+                    string query = "DELETE FROM lancamentos WHERE id_lancamentos = @id";
+
+                    MySqlCommand comando = new MySqlCommand(query, conectar);
+                    comando.Parameters.AddWithValue("@id", Convert.ToInt32(label_id.Text));
+                    comando.ExecuteNonQuery();
+
+                    MessageBox.Show("Lançamento apagado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Atualiza os dados do grid (caso use DataGridView)
+                    CarregarLancamentos();
+
+                    // Limpa campos da tela e o ID
+                    label_id.Text = "";
+                    txt_categoria.Text = "";
+                    textBox6.Text = "";
+                    textBox7.Text = "";
+                    textBox9.Text = "";
+                    textBox8.Text = "";
+                    checkBox1.Checked = false;
+                    checkBox2.Checked = false;
+                    checkBox4.Checked = false;
+                    checkBox5.Checked = false;
+                    txt_categoria.Focus();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao apagar lançamento: " + ex.Message);
+                }
+                finally
+                {
+                    conectar.Close();
+                }
+            }
         }
+
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
