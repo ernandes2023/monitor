@@ -32,6 +32,8 @@ namespace MonitorFinanceiro
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txt_nome_usuario = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Nome = new System.Windows.Forms.Label();
@@ -46,10 +48,8 @@ namespace MonitorFinanceiro
             this.lblWarning = new System.Windows.Forms.Label();
             this.btnShowPass = new System.Windows.Forms.Button();
             this.lblPass2 = new System.Windows.Forms.Label();
-            this.progressBar2 = new ProgressBarCustomizada();
             this.CheckAdm = new System.Windows.Forms.CheckBox();
             this.lblPass1 = new System.Windows.Forms.Label();
-            this.progressBar1 = new ProgressBarCustomizada();
             this.btn_limpar = new System.Windows.Forms.Button();
             this.txtConfPass = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -94,7 +94,7 @@ namespace MonitorFinanceiro
             this.label6 = new System.Windows.Forms.Label();
             this.txt_categoria = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.DgvMovimentacoes = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cbxFrmPag = new System.Windows.Forms.ComboBox();
             this.button9 = new System.Windows.Forms.Button();
@@ -126,6 +126,9 @@ namespace MonitorFinanceiro
             this.button1 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.timerRelogio = new System.Windows.Forms.Timer(this.components);
+            this.progressBar2 = new ProgressBarCustomizada();
+            this.progressBar1 = new ProgressBarCustomizada();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -139,7 +142,7 @@ namespace MonitorFinanceiro
             ((System.ComponentModel.ISupportInitialize)(this.DgvLancamentos)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvMovimentacoes)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.PanelLogin.SuspendLayout();
             this.SuspendLayout();
@@ -308,14 +311,6 @@ namespace MonitorFinanceiro
             this.lblPass2.Size = new System.Drawing.Size(202, 16);
             this.lblPass2.TabIndex = 15;
             // 
-            // progressBar2
-            // 
-            this.progressBar2.Location = new System.Drawing.Point(217, 159);
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(202, 10);
-            this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar2.TabIndex = 15;
-            // 
             // CheckAdm
             // 
             this.CheckAdm.AutoSize = true;
@@ -333,14 +328,6 @@ namespace MonitorFinanceiro
             this.lblPass1.Name = "lblPass1";
             this.lblPass1.Size = new System.Drawing.Size(202, 16);
             this.lblPass1.TabIndex = 14;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(8, 159);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(202, 10);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 15;
             // 
             // btn_limpar
             // 
@@ -810,7 +797,7 @@ namespace MonitorFinanceiro
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.dataGridView4);
+            this.tabPage4.Controls.Add(this.DgvMovimentacoes);
             this.tabPage4.Controls.Add(this.groupBox4);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
@@ -820,14 +807,23 @@ namespace MonitorFinanceiro
             this.tabPage4.Text = "Movimentações";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // dataGridView4
+            // DgvMovimentacoes
             // 
-            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Location = new System.Drawing.Point(438, 4);
-            this.dataGridView4.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.Size = new System.Drawing.Size(538, 504);
-            this.dataGridView4.TabIndex = 1;
+            this.DgvMovimentacoes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DgvMovimentacoes.DefaultCellStyle = dataGridViewCellStyle1;
+            this.DgvMovimentacoes.Location = new System.Drawing.Point(14, 137);
+            this.DgvMovimentacoes.Margin = new System.Windows.Forms.Padding(4);
+            this.DgvMovimentacoes.Name = "DgvMovimentacoes";
+            this.DgvMovimentacoes.Size = new System.Drawing.Size(917, 407);
+            this.DgvMovimentacoes.TabIndex = 1;
+            this.DgvMovimentacoes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvMovimentacoes_CellContentClick);
             // 
             // groupBox4
             // 
@@ -854,7 +850,7 @@ namespace MonitorFinanceiro
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(426, 346);
+            this.groupBox4.Size = new System.Drawing.Size(927, 125);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Movimentações";
@@ -862,7 +858,7 @@ namespace MonitorFinanceiro
             // cbxFrmPag
             // 
             this.cbxFrmPag.FormattingEnabled = true;
-            this.cbxFrmPag.Location = new System.Drawing.Point(161, 183);
+            this.cbxFrmPag.Location = new System.Drawing.Point(763, 43);
             this.cbxFrmPag.Margin = new System.Windows.Forms.Padding(4);
             this.cbxFrmPag.Name = "cbxFrmPag";
             this.cbxFrmPag.Size = new System.Drawing.Size(140, 24);
@@ -871,7 +867,7 @@ namespace MonitorFinanceiro
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(95, 289);
+            this.button9.Location = new System.Drawing.Point(662, 85);
             this.button9.Margin = new System.Windows.Forms.Padding(4);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(75, 28);
@@ -881,7 +877,7 @@ namespace MonitorFinanceiro
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(12, 289);
+            this.button10.Location = new System.Drawing.Point(579, 85);
             this.button10.Margin = new System.Windows.Forms.Padding(4);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(75, 28);
@@ -891,7 +887,7 @@ namespace MonitorFinanceiro
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(178, 289);
+            this.button11.Location = new System.Drawing.Point(745, 85);
             this.button11.Margin = new System.Windows.Forms.Padding(4);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(75, 28);
@@ -902,7 +898,7 @@ namespace MonitorFinanceiro
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(157, 163);
+            this.label14.Location = new System.Drawing.Point(759, 23);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(131, 16);
@@ -912,7 +908,7 @@ namespace MonitorFinanceiro
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(7, 165);
+            this.label13.Location = new System.Drawing.Point(609, 24);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(37, 16);
@@ -921,7 +917,7 @@ namespace MonitorFinanceiro
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(10, 185);
+            this.textBox5.Location = new System.Drawing.Point(612, 45);
             this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(143, 22);
@@ -930,7 +926,7 @@ namespace MonitorFinanceiro
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(269, 46);
+            this.label12.Location = new System.Drawing.Point(194, 21);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(75, 16);
@@ -939,16 +935,17 @@ namespace MonitorFinanceiro
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(272, 70);
+            this.textBox4.Location = new System.Drawing.Point(197, 45);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(143, 22);
             this.textBox4.TabIndex = 2;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 48);
+            this.label11.Location = new System.Drawing.Point(6, 23);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(183, 16);
@@ -958,10 +955,10 @@ namespace MonitorFinanceiro
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(7, 68);
+            this.comboBox2.Location = new System.Drawing.Point(6, 43);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(257, 24);
+            this.comboBox2.Size = new System.Drawing.Size(183, 24);
             this.comboBox2.TabIndex = 0;
             // 
             // tabPage3
@@ -1076,7 +1073,7 @@ namespace MonitorFinanceiro
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(10, 235);
+            this.checkBox3.Location = new System.Drawing.Point(6, 93);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(85, 20);
             this.checkBox3.TabIndex = 18;
@@ -1086,7 +1083,7 @@ namespace MonitorFinanceiro
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(253, 234);
+            this.comboBox1.Location = new System.Drawing.Point(249, 92);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(140, 24);
@@ -1095,7 +1092,7 @@ namespace MonitorFinanceiro
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(249, 214);
+            this.label8.Location = new System.Drawing.Point(245, 72);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(114, 16);
@@ -1105,7 +1102,7 @@ namespace MonitorFinanceiro
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(99, 216);
+            this.label9.Location = new System.Drawing.Point(95, 74);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(145, 16);
@@ -1114,7 +1111,7 @@ namespace MonitorFinanceiro
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(102, 236);
+            this.textBox1.Location = new System.Drawing.Point(98, 94);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(143, 22);
@@ -1122,7 +1119,7 @@ namespace MonitorFinanceiro
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(261, 289);
+            this.button1.Location = new System.Drawing.Point(828, 85);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 28);
@@ -1133,7 +1130,7 @@ namespace MonitorFinanceiro
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 104);
+            this.label10.Location = new System.Drawing.Point(345, 25);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(66, 16);
@@ -1142,11 +1139,33 @@ namespace MonitorFinanceiro
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(10, 124);
+            this.textBox2.Location = new System.Drawing.Point(348, 45);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(254, 22);
             this.textBox2.TabIndex = 24;
+            // 
+            // timerRelogio
+            // 
+            this.timerRelogio.Enabled = true;
+            this.timerRelogio.Interval = 1000;
+            this.timerRelogio.Tick += new System.EventHandler(this.timerRelogio_Tick_1);
+            // 
+            // progressBar2
+            // 
+            this.progressBar2.Location = new System.Drawing.Point(217, 159);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(202, 10);
+            this.progressBar2.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar2.TabIndex = 15;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(8, 159);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(202, 10);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.TabIndex = 15;
             // 
             // FrmPrincipal
             // 
@@ -1180,7 +1199,7 @@ namespace MonitorFinanceiro
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvMovimentacoes)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.PanelLogin.ResumeLayout(false);
@@ -1216,7 +1235,7 @@ namespace MonitorFinanceiro
         private System.Windows.Forms.TextBox txt_categoria;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.DataGridView DgvLancamentos;
-        private System.Windows.Forms.DataGridView dataGridView4;
+        private System.Windows.Forms.DataGridView DgvMovimentacoes;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
@@ -1285,6 +1304,7 @@ namespace MonitorFinanceiro
         private Label label9;
         private TextBox textBox1;
         private CheckBox checkBox3;
+        private Timer timerRelogio;
     }
 }
 

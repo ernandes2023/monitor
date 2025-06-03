@@ -26,10 +26,13 @@ namespace MonitorFinanceiro
         {
             InitializeComponent();
             CarregarLancamentos();
+            CarregarMovimentacoes();
             ClearTextbox();
             Load_FrmPag();
             UpdateDgvUser();
             LimparCampos();
+            
+
 
             tabControl1.Visible = false;
             pnlLogin.Visible = false;
@@ -40,6 +43,8 @@ namespace MonitorFinanceiro
             btnShowPass4.Image = Properties.Resources.olho2;
 
         }
+
+       
 
         private void LimparCampos()
         {
@@ -173,7 +178,10 @@ namespace MonitorFinanceiro
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            // Inicia o timer quando o formulário é carregado
+            timerRelogio.Start();
+            // Define o campo como somente leitura, se ainda não estiver no designer
+            textBox4.ReadOnly = true;
         }
 
         private void ClearTextbox()
@@ -999,6 +1007,78 @@ namespace MonitorFinanceiro
             
         }
 
+        private void CarregarMovimentacoes()
+        {
+            string query = @"
+                                SELECT 
+                                    m.id_movimentacao,
+                                    m.descricao,
+                                    m.data_movimentacao,
+                                    m.valor,
+                                    m.tipo,
+                                    m.forma_de_pagamento,
+                                    l.nome AS nome_lancamento,
+                                    u.name_user AS nome_usuario,
+                                    m.parcela,
+                                    m.total_parcelas,
+                                    m.grupo_parcela,
+                                    m.vencimento
+                                FROM movimentacoes m
+                                JOIN users u ON m.fk_usuario = u.id_user
+                                JOIN lancamentos l ON m.fk_lancamentos = l.id_lancamentos;";
+
+
+
+            DataTable tabela = new DataTable(); // Cria o DataTable apenas uma vez
+
+            using (MySqlConnection connection = new MySqlConnection(Program.conexaoBD))
+            {
+                try
+                {
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    using (MySqlDataAdapter adaptador = new MySqlDataAdapter(query, connection))
+                    {
+                        adaptador.Fill(tabela); // Preenche o DataTable com os dados do banco
+
+                        // Renomear as colunas conforme necessário
+                        tabela.Columns["descricao"].ColumnName = "Descrição";
+                        tabela.Columns["data_movimentacao"].ColumnName = "Data";
+                        tabela.Columns["valor"].ColumnName = "Valor:";
+                        tabela.Columns["tipo"].ColumnName = "Entrada ou Saída";
+                        tabela.Columns["forma_de_pagamento"].ColumnName = "Pagamento";
+                        tabela.Columns["nome_lancamento"].ColumnName = "Receita ou Despesa:";
+                        tabela.Columns["nome_usuario"].ColumnName = "Usuário:";
+                        tabela.Columns["parcela"].ColumnName = "Parcelado:";
+                        tabela.Columns["total_parcelas"].ColumnName = "Qtd. Parcelas:";
+                        tabela.Columns["grupo_parcela"].ColumnName = "Tipo de Parcelamento:";
+                        tabela.Columns["vencimento"].ColumnName = "Data Vencimento:";
+
+
+                    }
+
+                    DgvMovimentacoes.DataSource = tabela; // Atribui ao DataGridView depois de renomear
+                    DgvMovimentacoes.Columns["id_movimentacao"].Visible = false; // não mostra o ID na dgv
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro, não foi possível estabeler conexão com o banco de dados: " + ex.Message);
+
+                }
+                finally
+                {
+                    if (connection.State != ConnectionState.Closed)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+
+        }
+
       
         private void CarregarLancamentos()
         {
@@ -1445,6 +1525,24 @@ namespace MonitorFinanceiro
         private void txtEmailLogin_TextChanged(object sender, EventArgs e)
         {
             tentativasFalhas = 0;
+        }
+
+        private void DgvMovimentacoes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+           
+        }
+   
+
+        private void timerRelogio_Tick_1(object sender, EventArgs e)
+        {
+            // Atualiza o conteúdo da textBox4 com a data e hora atual
+            textBox4.Text = DateTime.Now.ToString("dd/MM/yyyy - HH:mm:ss");
+
         }
     }
 }
